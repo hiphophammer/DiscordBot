@@ -1,3 +1,3 @@
-discord.py==1.7.3
-selenium==3.141.0
-beautifulsoup4==0.0.1
+discord.py
+selenium
+beautifulsoup4
