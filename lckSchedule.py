@@ -51,18 +51,16 @@ class LckSchedule:
         self.soup = bs(self.html, 'html.parser') # boil soup in Korean
 
         # testing block: print out geoinfo from javascript file
-        self.element = self.wd.execute_script("return window._geoinfo")
-        print(self.element)
+        # self.element = self.wd.execute_script("return window._geoinfo")
+        # print(self.element)
 
         self.raw_soup = self.soup.findAll('div', class_='single future event')
         for row in self.raw_soup:
             print(row)
 
-
-
     # returns next schedule in pd
     def get_next(self):
-        return
+        return self.raw_soup[0]
 
     # returns the whole schedule in pd
 
