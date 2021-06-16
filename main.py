@@ -1,7 +1,8 @@
 import discord
 import lckSchedule as ls
+import os
 
-myToken = 'Mjg1NjUxMTM3OTU5NTU5MTY4.WLO_Wg.tQOBIlY4j7jyXL7q3ylJhhnZJ0M'
+myToken = os.environ.get('MY_TOKEN')
 schedule = ls.LckSchedule()
 client = discord.Client()
 

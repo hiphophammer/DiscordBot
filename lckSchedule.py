@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup as bs
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+import os
 
 
 # class instance for LCK Schedule
@@ -10,16 +11,13 @@ class LckSchedule:
 
     # initializer
     def __init__(self, url=url):
-        # set up chromedriver
-        self.driver = webdriver.Chrome(executable_path="chromedriver.exe")
-
         # options for chromedriver
         self.options = webdriver.ChromeOptions()
+        self.options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
         self.options.add_argument('--headless')
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--disable-dev-shm-usage')
-        self.options.add_experimental_option('prefs', {'intl.accept_languages': 'ko,ko_KR'})
-        self.wd = webdriver.Chrome('chromedriver', options=self.options)
+        self.wd = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=self.options)
 
         # set up variables for geoloc. overriding
         self.latitude = 37.206192
