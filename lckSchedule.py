@@ -11,7 +11,7 @@ class LckSchedule:
     # initializer
     def __init__(self, url=url):
         # set up chromedriver
-        self.driver = webdriver.Chrome(executable_path="chromedriver.exe")
+        self.driver = webdriver.Chrome(executable_path="/app/.chromedriver/bin/chromedriver/chromedriver.exe")
 
         # options for chromedriver
         self.options = webdriver.ChromeOptions()
