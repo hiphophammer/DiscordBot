@@ -1,3 +1,7 @@
+datetime
 discord.py
 selenium
+pandas
+re
+numpy
 beautifulsoup4
