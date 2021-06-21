@@ -1,5 +1,6 @@
 import discord
 import lckSchedule as ls
+import lckStanding
 import os
 
 import pandas as pd
@@ -9,6 +10,7 @@ import datetime
 myToken = os.environ.get('MY_TOKEN')
 channelID = 634035246592950284  # 노인정 일반
 schedule = ls.LckSchedule()
+standing = lckStanding.LckStanding()
 client = discord.Client()
 
 
@@ -41,6 +43,7 @@ async def today_match(channel):
             result += '지난 경기'
             for index, match in today_past.iterrows():
                 result += '\n'
+                result += '> '
                 result = result + match['weekday'] + ' ' + match['league'] + ' ' + str(match['date'].hour) + '시 ' + \
                          match['first_team_tricode'] + '(' + match['first_team_score'] + ') vs ' + \
                          match['second_team_tricode'] + '(' + match['second_team_score'] + ')'
@@ -49,6 +52,7 @@ async def today_match(channel):
             result += '진행 중인 경기'
             for index, match in today_live.iterrows():
                 result += '\n'
+                result += '> '
                 result = result + match['league'] + ' ' + match['first_team_tricode'] + ' vs ' + \
                          match['second_team_tricode'] + ' ' + match['game_number'] + '번째 세트'
             result += '\n'
@@ -56,6 +60,7 @@ async def today_match(channel):
             result += '예정된 경기'
             for index, match in today_future.iterrows():
                 result += '\n'
+                result += '> '
                 result = result + match['weekday'] + ' ' + match['league'] + ' ' + str(match['date'].hour) + '시' + \
                          match['first_team_tricode'] + ' vs ' + match['second_team_tricode']
     await channel.send(result)
@@ -74,6 +79,7 @@ async def find_next_match(channel):
         result.append('다음 경기:')
         for index, match in found_game.iterrows():
             result.append('\n')
+            result.append('> ')
             result.append(str(found_game['date'][index].month) + '월 ')
             result.append(str(found_game['date'][index].day) + '일 ')
             result.append(found_game['weekday'].at[index] + ' ')
@@ -118,6 +124,7 @@ async def search_next_match(channel, team):
         for index, match in found_game.iterrows():
             result.append('다음 ' + name_kr + ' 경기:')
             result.append('\n')
+            result.append('> ')
             result.append(str(found_game['date'][found_index].month) + '월 ')
             result.append(str(found_game['date'][found_index].day) + '일 ')
             result.append(found_game['weekday'].at[found_index] + ' ')
@@ -168,12 +175,31 @@ async def on_message(message):
         elif message_list[0] == 'ㄷㅇㄱㄱ':
             await find_next_match(channel)
 
+        elif len(message_list) == 1 and (message_list[0] == 'ㅅㅇㅍ' or message_list[0] == '순위표'):
+            await standing_whole_list(channel)
+
         elif cmd_is_today_match(message_list):
             current_time = '현재 시각: ' + str(
                 pd.to_datetime(np.datetime64(datetime.datetime.now(), '[m]'), format='%Y-%m-%dT%H'))
             print(current_time)
             await channel.send('목록을 새로 고칩니다...')
             await today_match(channel)
+
+
+async def standing_whole_list(channel):
+    result = ['LCK 순위표:']
+    for index, row in standing.result_df.iterrows():
+        result.append('\n')
+        result.append('> ')
+        result.append(row['ranking'])
+        result.append(' ')
+        result.append('**')
+        result.append(row['team_name'])
+        result.append('**')
+        result.append(' ')
+        result.append(row['record'])
+    z = ''.join(result)
+    await channel.send(z)
 
 
 def cmd_is_today_match(message_list):
