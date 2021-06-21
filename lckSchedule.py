@@ -385,7 +385,7 @@ class LckSchedule:
         print('Done creating base frames...')
         self.convert_dates()
 
-    def get_next_match(self, team_code):
+    def search_for_next_match(self, team_code):
         target_index = 0
         target_found = False
         for index, row in self.result_df_future.iterrows():
@@ -397,50 +397,57 @@ class LckSchedule:
                 break
         return self.result_df_future[target_index:target_index+1], target_index
 
+    def get_next_match(self):
+        # start from today
+        closest_day = self.result_df_future['date'][0] # get date of the first future match
+        # TODO: idk if it'll work when there's no future match.
+        stop_index = 0
+        # repeat until day is found
+        while self.is_the_same_date(closest_day, self.result_df_future['date'][stop_index+1]):
+            stop_index += 1
+        return self.result_df_future[0:stop_index+1]
+
+    @staticmethod
+    def is_the_same_date(date1, date2):
+        print('Comparing ', str(date1), ' and ', str(date2), '...')
+        if date1.year == date2.year and date1.month == date2.month and date1.day == date2.day:
+            return True
+        else:
+            return False
+
     def get_todays_matches(self):
         self.refresh()
         # today game
         today_date = pd.to_datetime(np.datetime64(datetime.datetime.now(), '[m]'), format='%Y-%m-%dT%H')
-        # today_date = pd.to_datetime(np.datetime64('2021-06-20T13', '[m]'), format='%Y-%m-%dT%H')
+        # today_date = pd.to_datetime(np.datetime64('2021-06-20T18', '[m]'), format='%Y-%m-%dT%H')
+        print('today date: ', today_date)
+
         # past game
         lowest_past_game_index = len(self.result_df_past) - 1
-
-        while (today_date.year == self.result_df_past['date'][lowest_past_game_index].year) and \
-                (today_date.month == self.result_df_past['date'][lowest_past_game_index].month) and \
-                (today_date.day == self.result_df_past['date'][lowest_past_game_index].day):
-            if ((today_date.year == self.result_df_past['date'][lowest_past_game_index - 1].year) and \
-                    (today_date.month == self.result_df_past['date'][lowest_past_game_index - 1].month) and \
-                    (today_date.day == self.result_df_past['date'][lowest_past_game_index - 1].day)):
-                lowest_past_game_index -= 1
+        while self.is_the_same_date(today_date, self.result_df_past['date'][lowest_past_game_index]):
+            # same date; see if there was any past game
+            if self.result_df_past['date'][lowest_past_game_index] < today_date:
+                if not self.is_the_same_date(today_date, self.result_df_past['date'][lowest_past_game_index-1]):
+                    break
+                else:
+                    lowest_past_game_index -= 1
             else:
                 break
-            print('today date: ', today_date)
-            print('result date: ', self.result_df_past['date'][lowest_past_game_index])
+
         # future game
         highest_future_game_index = 0
-
-        while (today_date.year == self.result_df_future['date'][highest_future_game_index].year) and (
-                today_date.month == self.result_df_future['date'][highest_future_game_index].month) and (
-                today_date.day == self.result_df_future['date'][highest_future_game_index].day):
-            if ((today_date.year == self.result_df_future['date'][highest_future_game_index + 1].year) and (
-                    today_date.month == self.result_df_future['date'][highest_future_game_index + 1].month) and (
-                    today_date.day == self.result_df_future['date'][highest_future_game_index + 1].day)):
-                highest_future_game_index += 1
+        while self.is_the_same_date(today_date, self.result_df_future['date'][highest_future_game_index]):
+            # same date:
+            if self.result_df_future['date'][highest_future_game_index] > today_date:
+                if not self.is_the_same_date(today_date, self.result_df_future['date'][highest_future_game_index+1]):
+                    break
+                else:
+                    highest_future_game_index += 1
             else:
                 break
+
         # end of getting indices; slice dataframes
-        print('past games')
+
         today_past_df = self.result_df_past[lowest_past_game_index:len(self.result_df_past) - 1]
-        print(today_past_df)
-        print('live games')
-        if len(self.result_df_live) == 0:
-            print('no live game')
-        else:
-            print(self.result_df_live)
-        print('future games')
-        today_future_df = self.result_df_future[0:highest_future_game_index + 1]
-        if len(today_future_df) == 0:
-            print('no more game today')
-        else:
-            print(today_future_df)
+        today_future_df = self.result_df_future[0:highest_future_game_index]
         return today_past_df, self.result_df_live, today_future_df
