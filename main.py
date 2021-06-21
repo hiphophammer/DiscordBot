@@ -205,6 +205,7 @@ async def standing_whole_list(channel):
         result.append(' ')
         result.append('**')
         result.append(add_emoji(row['team_name']))
+        print(add_emoji(row['team_name']))
         result.append('**')
         result.append(' ')
         result.append(row['record'])
@@ -225,11 +226,11 @@ def add_emoji(n):
         return emoji_BRO + n
     elif n == 'AF' or n == 'Afreeca Freecs':
         return emoji_AF + n
-    elif n == 'LSB' or 'Liiv SANDBOX':
+    elif n == 'LSB' or n == 'Liiv SANDBOX':
         return emoji_LSB + n
-    elif n == 'KT' or 'kt Rolster':
+    elif n == 'KT' or n == 'kt Rolster':
         return emoji_KT + n
-    elif n == 'NS' or 'NongShim REDFORCE':
+    elif n == 'NS' or n == 'NongShim REDFORCE':
         return emoji_NS + n
     else:
         return emoji_DRX + n
