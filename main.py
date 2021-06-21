@@ -13,6 +13,16 @@ schedule = ls.LckSchedule()
 standing = lckStanding.LckStanding()
 client = discord.Client()
 
+emoji_DK = '<:DK:856422574321434644>'
+emoji_GEN = '<:GEN:856422574426554378>'
+emoji_HLE = '<:HLE:856422574563917844>'
+emoji_BRO = '<:FB:856422574158118943>'
+emoji_AF = '<:AF:856422574325497856>'
+emoji_LSB = '<:SB:856422574601535488>'
+emoji_KT = '<:KT:856422574410170368>'
+emoji_NS = '<:NS:856422574510702612>'
+emoji_T1 = '<:T1:856420309098954772>'
+emoji_DRX = '<:DRX:856422574329692170>'
 
 @client.event
 async def on_ready():
@@ -45,16 +55,16 @@ async def today_match(channel):
                 result += '\n'
                 result += '> '
                 result = result + match['weekday'] + ' ' + match['league'] + ' ' + str(match['date'].hour) + '시 ' + \
-                         match['first_team_tricode'] + '(' + match['first_team_score'] + ') vs ' + \
-                         match['second_team_tricode'] + '(' + match['second_team_score'] + ')'
+                         add_emoji(match['first_team_tricode']) + '(' + match['first_team_score'] + ') vs ' + \
+                         add_emoji(match['second_team_tricode']) + '(' + match['second_team_score'] + ')'
             result += '\n'
         if len(today_live) != 0:  # there is a live match
             result += '진행 중인 경기'
             for index, match in today_live.iterrows():
                 result += '\n'
                 result += '> '
-                result = result + match['league'] + ' ' + match['first_team_tricode'] + ' vs ' + \
-                         match['second_team_tricode'] + ' ' + match['game_number'] + '번째 세트'
+                result = result + match['league'] + ' ' + add_emoji(match['first_team_tricode']) + ' vs ' + \
+                         add_emoji(match['second_team_tricode']) + ' ' + match['game_number'] + '번째 세트'
             result += '\n'
         if len(today_future) != 0:
             result += '예정된 경기'
@@ -62,7 +72,7 @@ async def today_match(channel):
                 result += '\n'
                 result += '> '
                 result = result + match['weekday'] + ' ' + match['league'] + ' ' + str(match['date'].hour) + '시' + \
-                         match['first_team_tricode'] + ' vs ' + match['second_team_tricode']
+                         add_emoji(match['first_team_tricode']) + ' vs ' + add_emoji(match['second_team_tricode'])
     await channel.send(result)
     if no_match:
         await find_next_match(channel)
@@ -84,9 +94,9 @@ async def find_next_match(channel):
             result.append(str(found_game['date'][index].day) + '일 ')
             result.append(found_game['weekday'].at[index] + ' ')
             result.append(str(found_game['date'][index].hour) + '시 ')
-            result.append(found_game['first_team_tricode'].at[index])
+            result.append(add_emoji(found_game['first_team_tricode'].at[index]))
             result.append(' vs ')
-            result.append(found_game['second_team_tricode'].at[index])
+            result.append(add_emoji(found_game['second_team_tricode'].at[index]))
     z = ''.join(result)
     await channel.send(z)
 
@@ -129,9 +139,9 @@ async def search_next_match(channel, team):
             result.append(str(found_game['date'][found_index].day) + '일 ')
             result.append(found_game['weekday'].at[found_index] + ' ')
             result.append(str(found_game['date'][found_index].hour) + '시 ')
-            result.append(found_game['first_team_tricode'].at[found_index])
+            result.append(add_emoji(found_game['first_team_tricode'].at[found_index]))
             result.append(' vs ')
-            result.append(found_game['second_team_tricode'].at[found_index])
+            result.append(add_emoji(found_game['second_team_tricode'].at[found_index]))
     z = ''.join(result)
     await channel.send(z)
 
@@ -194,12 +204,35 @@ async def standing_whole_list(channel):
         result.append(row['ranking'])
         result.append(' ')
         result.append('**')
-        result.append(row['team_name'])
+        result.append(add_emoji(row['team_name']))
         result.append('**')
         result.append(' ')
         result.append(row['record'])
     z = ''.join(result)
     await channel.send(z)
+
+
+def add_emoji(n):
+    if n == 'T1':
+        return emoji_T1 + n
+    elif n == 'GEN' or n == 'Gen.G':
+        return emoji_GEN + n
+    elif n == 'DK' or n == 'DWG KIA':
+        return emoji_DK + n
+    elif n == 'HLE' or n == 'Hanwha Life Esports':
+        return emoji_HLE + n
+    elif n == 'BRO' or n == 'Fredit BRION':
+        return emoji_BRO + n
+    elif n == 'AF' or n == 'Afreeca Freecs':
+        return emoji_AF + n
+    elif n == 'LSB' or 'Liiv SANDBOX':
+        return emoji_LSB + n
+    elif n == 'KT' or 'kt Rolster':
+        return emoji_KT + n
+    elif n == 'NS' or 'NongShim REDFORCE':
+        return emoji_NS + n
+    else:
+        return emoji_DRX + n
 
 
 def cmd_is_today_match(message_list):
