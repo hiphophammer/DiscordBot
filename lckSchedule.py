@@ -24,9 +24,27 @@ class LckSchedule:
         # options for chromedriver
         self.options = webdriver.ChromeOptions()
         self.options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        self.options.add_argument('--headless')
+        self.options.add_argument('headless')  # headless 모드 설정
+        self.options.add_argument("window-size=1920x1080")  # 화면크기(전체화면)
+        self.options.add_argument("disable-gpu")
+        self.options.add_argument("disable-infobars")
+        self.options.add_argument("--disable-extensions")
         self.options.add_argument('--no-sandbox')
         self.options.add_argument('--disable-dev-shm-usage')
+
+        prefs = {'profile.default_content_setting_values': {'cookies': 2, 'images': 2, 'plugins': 2, 'popups': 2,
+                                                            'geolocation': 2, 'notifications': 2,
+                                                            'auto_select_certificate': 2, 'fullscreen': 2,
+                                                            'mouselock': 2, 'mixed_script': 2, 'media_stream': 2,
+                                                            'media_stream_mic': 2, 'media_stream_camera': 2,
+                                                            'protocol_handlers': 2, 'ppapi_broker': 2,
+                                                            'automatic_downloads': 2, 'midi_sysex': 2,
+                                                            'push_messaging': 2, 'ssl_cert_decisions': 2,
+                                                            'metro_switch_to_desktop': 2,
+                                                            'protected_media_identifier': 2, 'app_banner': 2,
+                                                            'site_engagement': 2, 'durable_storage': 2}}
+        self.options.add_experimental_option('prefs', prefs)
+
         self.wd = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=self.options)
 
         # set up variables for geoloc. overriding
@@ -417,6 +435,7 @@ class LckSchedule:
 
     def get_todays_matches(self):
         self.refresh()
+        print('--- done refreshing, getting today\'s schedule...')
         # today game
         today_date = pd.to_datetime(np.datetime64(datetime.datetime.now(), '[m]'), format='%Y-%m-%dT%H')
         # today_date = pd.to_datetime(np.datetime64('2021-06-20T18', '[m]'), format='%Y-%m-%dT%H')
@@ -424,29 +443,25 @@ class LckSchedule:
 
         # past game
         lowest_past_game_index = len(self.result_df_past) - 1
-        while self.is_the_same_date(today_date, self.result_df_past['date'][lowest_past_game_index]):
-            # same date; see if there was any past game
-            if self.result_df_past['date'][lowest_past_game_index] < today_date:
-                if not self.is_the_same_date(today_date, self.result_df_past['date'][lowest_past_game_index-1]):
-                    break
-                else:
-                    lowest_past_game_index -= 1
-            else:
-                break
+        if self.is_the_same_date(today_date, self.result_df_past['date'][lowest_past_game_index]):
+            lowest_past_game_index -= 1
+            while self.is_the_same_date(today_date, self.result_df_past['date'][lowest_past_game_index]):
+                lowest_past_game_index -= 1
 
         # future game
-        highest_future_game_index = 0
-        while self.is_the_same_date(today_date, self.result_df_future['date'][highest_future_game_index]):
-            # same date:
-            if self.result_df_future['date'][highest_future_game_index] > today_date:
-                if not self.is_the_same_date(today_date, self.result_df_future['date'][highest_future_game_index+1]):
-                    break
-                else:
-                    highest_future_game_index += 1
-            else:
-                break
+        print('--- getting future games...---')
 
+        highest_future_game_index = 0
+
+        if self.is_the_same_date(today_date, self.result_df_future['date'][highest_future_game_index]):
+            highest_future_game_index += 1
+            while self.is_the_same_date(today_date, self.result_df_future['date'][highest_future_game_index]):
+                highest_future_game_index += 1
         # end of getting indices; slice dataframes
+
+        print('Done!')
+        print('Lowest index: ', lowest_past_game_index)
+        print('Highest index: ', highest_future_game_index)
 
         today_past_df = self.result_df_past[lowest_past_game_index:len(self.result_df_past) - 1]
         today_future_df = self.result_df_future[0:highest_future_game_index]

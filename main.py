@@ -24,6 +24,9 @@ emoji_NS = '<:NS:856422574510702612>'
 emoji_T1 = '<:T1:856420309098954772>'
 emoji_DRX = '<:DRX:856422574329692170>'
 
+commands = []  # 명령어 큐
+
+
 @client.event
 async def on_ready():
     # logged on
@@ -148,6 +151,12 @@ async def search_next_match(channel, team):
 
 @client.event
 async def on_message(message):
+    # ------- for debugging: prints all messages --------- #
+    if not message.author.bot: # do only if message is sent from user
+        print('message: ', message)
+        print('message type: ', type(message.content))
+        print('message content: ', message.content)
+
     channel = message.channel  # get this channel info
     message_list = message.content.split(' ', 3)
 
@@ -156,26 +165,38 @@ async def on_message(message):
         if message_list[0] == '다음' or message_list[0] == 'ㄷㅇ':
             try:
                 if len(message_list) == 2 or message_list[2] == '경기':
-                    if message_list[1] == '젠지' or message_list[1] == 'GEN' or message_list[1] == 'GEN.G':
+                    if message_list[1] == '젠지' or message_list[1] == 'GEN' or message_list[1] == 'GEN.G'\
+                            or message_list[1] == 'gen' or message_list[1] == 'geng' or message_list[1] == 'ㅈㅈ':
                         await search_next_match(channel, 'GEN')
-                    elif message_list[1] == '담원' or message_list[1] == 'DWG' or message_list[1] == 'DK':
+                    elif message_list[1] == '담원' or message_list[1] == 'DWG' or message_list[1] == 'DK'\
+                            or message_list[1] == 'dwg' or message_list[1] == 'ㄷㅇ':
                         await search_next_match(channel, 'DK')
-                    elif message_list[1] == '한화' or message_list[1] == 'HLE' or message_list[1] == '한화생명':
+                    elif message_list[1] == '한화' or message_list[1] == 'HLE' or message_list[1] == '한화생명'\
+                            or message_list[1] == 'hle' or message_list[1] == 'ㅎㅎ':
                         await search_next_match(channel, 'HLE')
-                    elif message_list[1] == '브리온' or message_list[1] == 'BRO' or message_list[1] == '프레딧브리온':
+                    elif message_list[1] == '브리온' or message_list[1] == 'BRO' or message_list[1] == '프레딧브리온'\
+                            or message_list[1] == '브로롱' or message_list[1] == 'bro' or message_list[1] == 'ㅂㄹㅇ':
                         await search_next_match(channel, 'BRO')
-                    elif message_list[1] == '아프리카' or message_list[1] == 'AF':
+                    elif message_list[1] == '아프리카' or message_list[1] == 'AF' or message_list[1] == 'ㅇㅍㄹㅋ'\
+                            or message_list[1] == 'ㅇㅍ':
                         await search_next_match(channel, 'AF')
-                    elif message_list[1] == '샌드박스' or message_list[1] == '샌박' or message_list[1] == '리브샌드박스':
+                    elif message_list[1] == '샌드박스' or message_list[1] == '샌박' or message_list[1] == '리브샌드박스'\
+                            or message_list[1] == 'ㅅㅂ' or message_list[1] == 'ㅅㄷㅂㅅ' or message_list[1] == 'ㅅㄷㅄ'\
+                            or message_list[1] == 'sb' or message_list[1] == 'LSB' or message_list[1] == 'lsb' \
+                            or message_list[1] == 'SB':
                         await search_next_match(channel, 'LSB')
-                    elif message_list[1] == 'KT' or message_list[1] == '케이티' or message_list[1] == '대퍼팀':
+                    elif message_list[1] == 'KT' or message_list[1] == '케이티' or message_list[1] == '대퍼팀'\
+                            or message_list[1] == 'ㅋㅌ' or message_list[1] == 'ㅋㅇㅌ' or message_list[1] == 'kt':
                         await search_next_match(channel, 'KT')
-                    elif message_list[1] == '농심' or message_list[1] == 'NS':
+                    elif message_list[1] == '농심' or message_list[1] == 'NS' or message_list[1] == 'ㄴㅅ' \
+                            or message_list[1] == 'ns':
                         await search_next_match(channel, 'NS')
                     elif message_list[1] == 'T1' or message_list[1] == '개좆슼' or message_list[1] == '티원' \
-                            or message_list[1] == '대황슼' or message_list[1] == 'SKT' or message_list[1] == '그팀':
+                            or message_list[1] == '대황슼' or message_list[1] == 'SKT' or message_list[1] == '그팀'\
+                            or message_list[1] == 'skt' or message_list[1] == 't1':
                         await search_next_match(channel, 'T1')
-                    elif message_list[1] == 'DRX' or message_list[1] == '듀렉스' or message_list[1] == '콘돔':
+                    elif message_list[1] == 'DRX' or message_list[1] == '듀렉스' or message_list[1] == '콘돔'\
+                        or message_list[1] == 'drx':
                         await search_next_match(channel, 'DRX')
                     elif message_list[1] == '경기' or message_list[1] == 'ㄱㄱ':
                         await find_next_match(channel)
@@ -251,12 +272,6 @@ def cmd_is_today_match(message_list):
             if message_list[2] == 'ㄴㄱ' or message_list[2] == '누구':
                 return True
     return False
-
-    # ------- for debugging: prints all messages --------- #
-    # if not message.author.bot: # do only if message is sent from user && is testMode
-    #     print('message: ', message)
-    #     print('message type: ', type(message.content))
-    #     print('message content: ', message.content)
 
 
 client.run(myToken)
