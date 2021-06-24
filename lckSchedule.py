@@ -463,10 +463,10 @@ class LckSchedule:
         print('Lowest index: ', lowest_past_game_index)
         print('Highest index: ', highest_future_game_index)
 
-        try:
-            today_past_df = self.result_df_past[lowest_past_game_index:len(self.result_df_past)]
-        except:
-            today_past_df = self.result_df_past[0:0]
+        # try:
+        #     today_past_df = self.result_df_past[lowest_past_game_index:len(self.result_df_past)]
+        # except:
+        today_past_df = self.result_df_past[0:0]
         try:
             today_future_df = self.result_df_future[0:highest_future_game_index]
         except:
