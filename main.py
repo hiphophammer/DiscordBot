@@ -218,6 +218,7 @@ async def on_message(message):
 
 
 async def standing_whole_list(channel):
+    standing.refresh()
     result = ['LCK 순위표:']
     for index, row in standing.result_df.iterrows():
         result.append('\n')
