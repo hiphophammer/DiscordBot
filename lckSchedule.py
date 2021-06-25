@@ -416,6 +416,7 @@ class LckSchedule:
         return self.result_df_future[target_index:target_index+1], target_index
 
     def get_last_match(self):
+        self.refresh()
         return self.result_df_past[len(self.result_df_past)-1:len(self.result_df_past)], len(self.result_df_past)-1
 
     def get_next_match(self):
