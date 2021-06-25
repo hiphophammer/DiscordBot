@@ -4,7 +4,6 @@ import lckStanding
 import os
 from datetime import date
 
-
 import pandas as pd
 import numpy as np
 import datetime
@@ -106,6 +105,7 @@ async def find_next_match(channel):
     z = ''.join(result)
     await channel.send(z)
 
+
 async def search_last_game(channel):
     found_game, found_index = schedule.get_last_match()
 
@@ -122,21 +122,26 @@ async def search_last_game(channel):
             result.append(str(found_game['date'][found_index].day) + '일 ')
             result.append(found_game['weekday'].at[found_index] + ' ')
             result.append(str(found_game['date'][found_index].hour) + '시 ')
-            if int(found_game['first_team_score'].at[found_index]) > int(found_game['second_team_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) > int(
+                    found_game['second_team_score'].at[found_index]):
                 result.append('**')
             result.append(add_emoji(found_game['first_team_tricode'].at[found_index]))
             result.append('(' + found_game['first_team_score'].at[found_index] + ')')
-            if int(found_game['first_team_score'].at[found_index]) > int(found_game['second_team_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) > int(
+                    found_game['second_team_score'].at[found_index]):
                 result.append('**')
             result.append(' vs ')
-            if int(found_game['first_team_score'].at[found_index]) < int(found_game['second_team_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) < int(
+                    found_game['second_team_score'].at[found_index]):
                 result.append('**')
             result.append(add_emoji(found_game['second_team_tricode'].at[found_index]))
             result.append('(' + found_game['second_team_score'].at[found_index] + ')')
-            if int(found_game['first_team_score'].at[found_index]) < int(found_game['second_team_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) < int(
+                    found_game['second_team_score'].at[found_index]):
                 result.append('**')
     z = ''.join(result)
     await channel.send(z)
+
 
 async def search_next_match(channel, team):
     found_game, found_index = schedule.search_for_next_match(team)
@@ -205,7 +210,7 @@ async def army_completion(channel):
 @client.event
 async def on_message(message):
     # ------- for debugging: prints all messages --------- #
-    if not message.author.bot: # do only if message is sent from user
+    if not message.author.bot:  # do only if message is sent from user
         print('message: ', message)
         print('message type: ', type(message.content))
         print('message content: ', message.content)
@@ -218,38 +223,38 @@ async def on_message(message):
         if message_list[0] == '다음' or message_list[0] == 'ㄷㅇ':
             try:
                 if len(message_list) == 2 or message_list[2] == '경기':
-                    if message_list[1] == '젠지' or message_list[1] == 'GEN' or message_list[1] == 'GEN.G'\
+                    if message_list[1] == '젠지' or message_list[1] == 'GEN' or message_list[1] == 'GEN.G' \
                             or message_list[1] == 'gen' or message_list[1] == 'geng' or message_list[1] == 'ㅈㅈ':
                         await search_next_match(channel, 'GEN')
-                    elif message_list[1] == '담원' or message_list[1] == 'DWG' or message_list[1] == 'DK'\
+                    elif message_list[1] == '담원' or message_list[1] == 'DWG' or message_list[1] == 'DK' \
                             or message_list[1] == 'dwg' or message_list[1] == 'ㄷㅇ':
                         await search_next_match(channel, 'DK')
-                    elif message_list[1] == '한화' or message_list[1] == 'HLE' or message_list[1] == '한화생명'\
+                    elif message_list[1] == '한화' or message_list[1] == 'HLE' or message_list[1] == '한화생명' \
                             or message_list[1] == 'hle' or message_list[1] == 'ㅎㅎ':
                         await search_next_match(channel, 'HLE')
-                    elif message_list[1] == '브리온' or message_list[1] == 'BRO' or message_list[1] == '프레딧브리온'\
+                    elif message_list[1] == '브리온' or message_list[1] == 'BRO' or message_list[1] == '프레딧브리온' \
                             or message_list[1] == '브로롱' or message_list[1] == 'bro' or message_list[1] == 'ㅂㄹㅇ':
                         await search_next_match(channel, 'BRO')
-                    elif message_list[1] == '아프리카' or message_list[1] == 'AF' or message_list[1] == 'ㅇㅍㄹㅋ'\
+                    elif message_list[1] == '아프리카' or message_list[1] == 'AF' or message_list[1] == 'ㅇㅍㄹㅋ' \
                             or message_list[1] == 'ㅇㅍ':
                         await search_next_match(channel, 'AF')
-                    elif message_list[1] == '샌드박스' or message_list[1] == '샌박' or message_list[1] == '리브샌드박스'\
-                            or message_list[1] == 'ㅅㅂ' or message_list[1] == 'ㅅㄷㅂㅅ' or message_list[1] == 'ㅅㄷㅄ'\
+                    elif message_list[1] == '샌드박스' or message_list[1] == '샌박' or message_list[1] == '리브샌드박스' \
+                            or message_list[1] == 'ㅅㅂ' or message_list[1] == 'ㅅㄷㅂㅅ' or message_list[1] == 'ㅅㄷㅄ' \
                             or message_list[1] == 'sb' or message_list[1] == 'LSB' or message_list[1] == 'lsb' \
                             or message_list[1] == 'SB':
                         await search_next_match(channel, 'LSB')
-                    elif message_list[1] == 'KT' or message_list[1] == '케이티' or message_list[1] == '대퍼팀'\
+                    elif message_list[1] == 'KT' or message_list[1] == '케이티' or message_list[1] == '대퍼팀' \
                             or message_list[1] == 'ㅋㅌ' or message_list[1] == 'ㅋㅇㅌ' or message_list[1] == 'kt':
                         await search_next_match(channel, 'KT')
                     elif message_list[1] == '농심' or message_list[1] == 'NS' or message_list[1] == 'ㄴㅅ' \
                             or message_list[1] == 'ns':
                         await search_next_match(channel, 'NS')
                     elif message_list[1] == 'T1' or message_list[1] == '개좆슼' or message_list[1] == '티원' \
-                            or message_list[1] == '대황슼' or message_list[1] == 'SKT' or message_list[1] == '그팀'\
+                            or message_list[1] == '대황슼' or message_list[1] == 'SKT' or message_list[1] == '그팀' \
                             or message_list[1] == 'skt' or message_list[1] == 't1':
                         await search_next_match(channel, 'T1')
-                    elif message_list[1] == 'DRX' or message_list[1] == '듀렉스' or message_list[1] == '콘돔'\
-                        or message_list[1] == 'drx':
+                    elif message_list[1] == 'DRX' or message_list[1] == '듀렉스' or message_list[1] == '콘돔' \
+                            or message_list[1] == 'drx':
                         await search_next_match(channel, 'DRX')
                     elif message_list[1] == '경기' or message_list[1] == 'ㄱㄱ':
                         await find_next_match(channel)
@@ -263,12 +268,14 @@ async def on_message(message):
             await find_next_match(channel)
 
         elif message_list[0] == '지난경기' or message_list[0] == 'ㅈㄴㄱㄱ' or message_list[0] == '누가이김' \
-            or message_list[0] == 'ㄴㄱㅇㄱ':
+                or message_list[0] == 'ㄴㄱㅇㄱ':
             await search_last_game(channel)
 
-        elif message_list[0] == 'ㅈㄴ' or '지난' or '누가' or 'ㄴㄱ':
+        elif message_list[0] == 'ㅈㄴ' or message_list[0] == '지난' or message_list[0] == '누가' or message_list[0] == 'ㄴㄱ':
             if len(message_list) == 2:
-                if message_list[1] == '경기' or message_list[1] == 'ㄱㄱ' or message_list[1] == '이김' or message_list[1] == 'ㅇㄱ':
+                if message_list[1] == '경기' or message_list[1] == 'ㄱㄱ' or message_list[1] == '이김' \
+                        or message_list[1] == 'ㅇㄱ':
+                    print('지난 경기')
                     await search_last_game(channel)
 
         elif len(message_list) == 1 and (message_list[0] == 'ㅅㅇㅍ' or message_list[0] == '순위표'):
@@ -322,7 +329,9 @@ def add_emoji(n):
     else:
         return emoji_DRX + n
 
+
 def cmd_is_today_match(message_list):
+    print('is today match?:', message_list)
     if len(message_list) == 1:
         if message_list[0] == '오늘경기' or message_list[0] == 'ㅇㄴㄱㄱ' or message_list[0] == '오늘ㄴㄱㄴㄱ':
             return True
