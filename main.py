@@ -319,7 +319,7 @@ def add_emoji(n):
         return emoji_NS + n
     else:
         return emoji_DRX + n
-
+dd
 
 def cmd_is_today_match(message_list):
     if len(message_list) == 1:
