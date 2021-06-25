@@ -184,8 +184,9 @@ async def search_next_match(channel, team):
 
 
 async def army_completion(channel):
-    result = [emoji_soldier]
-    result.append('\n')
+    print('제대 날짜 계산...')
+    await channel.send(emoji_soldier)
+    result = []
     d_tday = datetime.date.today()
     d1 = datetime.date(2021, 9, 9)
     delta = d1 - d_tday
@@ -254,7 +255,8 @@ async def on_message(message):
                         await find_next_match(channel)
             except Exception as e:
                 print('exception!', e)
-        elif message_list[0] == 'ㅈㄷ' or message_list[0] == '제대' or '해방':
+
+        elif message_list[0] == 'ㅈㄷ' or message_list[0] == '제대' or message_list[0] == '해방':
             await army_completion(channel)
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
@@ -319,7 +321,6 @@ def add_emoji(n):
         return emoji_NS + n
     else:
         return emoji_DRX + n
-dd
 
 def cmd_is_today_match(message_list):
     if len(message_list) == 1:
