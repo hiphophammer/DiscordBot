@@ -185,6 +185,7 @@ async def search_next_match(channel, team):
 
 async def army_completion(channel):
     result = [emoji_soldier]
+    result.append('\n')
     d_tday = date.today
     d1 = date(2021, 9, 9)
     delta = d1 - d_tday
