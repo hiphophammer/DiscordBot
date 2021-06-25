@@ -186,14 +186,14 @@ async def search_next_match(channel, team):
 async def army_completion(channel):
     result = [emoji_soldier]
     result.append('\n')
-    d_tday = date.today
-    d1 = date(2021, 9, 9)
+    d_tday = datetime.date.today()
+    d1 = datetime.date(2021, 9, 9)
     delta = d1 - d_tday
-    if d_tday > 2:
-        result.append('제대까지 ' + delta + '일')
-    elif d_tday == 1:
+    if delta.days > 2:
+        result.append('제대까지 ' + delta.days + '일')
+    elif delta.days == 1:
         result.append('제대까지 단 하루!!!')
-    elif d_tday == 0:
+    elif delta.days == 0:
         print('오늘!!!!!!!!!!!!!!!!!!!!!!')
     else:
         print('그만 물어봐.')
