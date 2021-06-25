@@ -2,6 +2,8 @@ import discord
 import lckSchedule as ls
 import lckStanding
 import os
+from datetime import date
+
 
 import pandas as pd
 import numpy as np
@@ -23,6 +25,7 @@ emoji_KT = '<:KT:856422574410170368>'
 emoji_NS = '<:NS:856422574510702612>'
 emoji_T1 = '<:T1:856420309098954772>'
 emoji_DRX = '<:DRX:856422574329692170>'
+emoji_soldier = '<:soldier:857954470604570655>'
 
 commands = []  # 명령어 큐
 
@@ -180,6 +183,23 @@ async def search_next_match(channel, team):
     await channel.send(z)
 
 
+async def army_completion(channel):
+    result = [emoji_soldier]
+    d_tday = date.today
+    d1 = date(2021, 9, 9)
+    delta = d1 - d_tday
+    if d_tday > 2:
+        result.append('제대까지 ' + delta + '일')
+    elif d_tday == 1:
+        result.append('제대까지 단 하루!!!')
+    elif d_tday == 0:
+        print('오늘!!!!!!!!!!!!!!!!!!!!!!')
+    else:
+        print('그만 물어봐.')
+    z = ''.join(result)
+    await channel.send(z)
+
+
 @client.event
 async def on_message(message):
     # ------- for debugging: prints all messages --------- #
@@ -233,6 +253,8 @@ async def on_message(message):
                         await find_next_match(channel)
             except Exception as e:
                 print('exception!', e)
+        elif message_list[0] == 'ㅈㄷ' or message_list[0] == '제대' or '해방':
+            await army_completion(channel)
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
             await find_next_match(channel)
