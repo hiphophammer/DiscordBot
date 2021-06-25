@@ -190,7 +190,7 @@ async def army_completion(channel):
     d1 = datetime.date(2021, 9, 9)
     delta = d1 - d_tday
     if delta.days > 2:
-        result.append('제대까지 ' + delta.days + '일')
+        result.append('제대까지 ' + str(delta.days) + '일')
     elif delta.days == 1:
         result.append('제대까지 단 하루!!!')
     elif delta.days == 0:
