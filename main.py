@@ -119,18 +119,18 @@ async def search_last_game(channel):
             result.append(str(found_game['date'][found_index].day) + '일 ')
             result.append(found_game['weekday'].at[found_index] + ' ')
             result.append(str(found_game['date'][found_index].hour) + '시 ')
-            if int(found_game['first_team_score'].at[found_index]) > int(found_game['first_second_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) > int(found_game['second_team_score'].at[found_index]):
                 result.append('**')
             result.append(add_emoji(found_game['first_team_tricode'].at[found_index]))
             result.append('(' + found_game['first_team_score'].at[found_index] + ')')
-            if int(found_game['first_team_score'].at[found_index]) > int(found_game['first_second_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) > int(found_game['second_team_score'].at[found_index]):
                 result.append('**')
             result.append(' vs ')
-            if int(found_game['first_team_score'].at[found_index]) < int(found_game['first_second_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) < int(found_game['second_team_score'].at[found_index]):
                 result.append('**')
             result.append(add_emoji(found_game['second_team_tricode'].at[found_index]))
             result.append('(' + found_game['second_team_score'].at[found_index] + ')')
-            if int(found_game['first_team_score'].at[found_index]) < int(found_game['first_second_score'].at[found_index]):
+            if int(found_game['first_team_score'].at[found_index]) < int(found_game['second_team_score'].at[found_index]):
                 result.append('**')
     z = ''.join(result)
     await channel.send(z)
