@@ -103,6 +103,27 @@ async def find_next_match(channel):
     z = ''.join(result)
     await channel.send(z)
 
+async def search_last_game(channel):
+    found_game, found_index = schedule.get_last_match()
+
+    print('지난 경기:', found_game)
+    result = []
+    if len(found_game) == 0:
+        result.append('지난 게임이 없어용')
+    else:
+        for index, match in found_game.iterrows():
+            result.append('지난 경기:')
+            result.append('\n')
+            result.append('> ')
+            result.append(str(found_game['date'][found_index].month) + '월 ')
+            result.append(str(found_game['date'][found_index].day) + '일 ')
+            result.append(found_game['weekday'].at[found_index] + ' ')
+            result.append(str(found_game['date'][found_index].hour) + '시 ')
+            result.append(add_emoji(found_game['first_team_tricode'].at[found_index]))
+            result.append(' vs ')
+            result.append(add_emoji(found_game['second_team_tricode'].at[found_index]))
+    z = ''.join(result)
+    await channel.send(z)
 
 async def search_next_match(channel, team):
     found_game, found_index = schedule.search_for_next_match(team)
@@ -205,6 +226,15 @@ async def on_message(message):
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
             await find_next_match(channel)
+
+        elif message_list[0] == '지난경기' or message_list[0] == 'ㅈㄴㄱㄱ' or message_list[0] == '누가이김' \
+            or message_list[0] == 'ㄴㄱㅇㄱ':
+            await search_last_game(channel)
+
+        elif message_list[0] == 'ㅈㄴ' or '지난' or '누가' or 'ㄴㄱ':
+            if len(message_list) == 2:
+                if message_list[1] == '경기' or message_list[1] == 'ㄱㄱ' or message_list[1] == '이김' or message_list[1] == 'ㅇㄱ':
+                    await search_last_game(channel)
 
         elif len(message_list) == 1 and (message_list[0] == 'ㅅㅇㅍ' or message_list[0] == '순위표'):
             await standing_whole_list(channel)
