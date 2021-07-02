@@ -29,6 +29,8 @@ emoji_soldier = '<:soldier:857954470604570655>'
 
 commands = []  # 명령어 큐
 
+stream_on = False
+
 
 @tasks.loop(minutes=1)
 async def check():
@@ -45,8 +47,11 @@ async def check():
         past, current, future = schedule.get_todays_matches()
         if not (len(past) == 0 and len(current) == 0 and len(future) == 0):
             await channel.send('https://www.twitch.tv/lck_korea')
-            await today_match
+            await today_match()
             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
+            stream_on = True
+    if stream_on:
+        pass
 
 
 @client.event
