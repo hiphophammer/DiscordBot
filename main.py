@@ -2,17 +2,18 @@ import discord
 import lckSchedule as ls
 import lckStanding
 import os
-from datetime import date
+from discord.ext import tasks, commands
+from datetime import datetime as dt
+import datetime
 
 import pandas as pd
 import numpy as np
-import datetime
 
 myToken = os.environ.get('MY_TOKEN')
 channelID = 634035246592950284  # 노인정 일반
 schedule = ls.LckSchedule()
 standing = lckStanding.LckStanding()
-client = discord.Client()
+client = commands.Bot(command_prefix="#")
 
 emoji_DK = '<:DK:856422574321434644>'
 emoji_GEN = '<:GEN:856422574426554378>'
@@ -29,10 +30,30 @@ emoji_soldier = '<:soldier:857954470604570655>'
 commands = []  # 명령어 큐
 
 
+@tasks.loop(minutes=1)
+async def check():
+    # 노인정
+    channel = client.get_channel(634035246592950284)
+
+    time_now = dt.now()
+    if time_now.minute % 10 == 9:
+        print('time: ', time_now, ', refreshing...')
+        standing.refresh()
+        schedule.refresh()
+
+    if time_now.minute == 0 and time_now.hour == 17:
+        past, current, future = schedule.get_todays_matches()
+        if not (len(past) == 0 and len(current) == 0 and len(future) == 0):
+            await channel.send('https://www.twitch.tv/lck_korea')
+            await today_match
+            await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
+
+
 @client.event
 async def on_ready():
     # logged on
     print('Logged in as {0.user}'.format(client))
+    check.start()
 
 
 async def today_match(channel):
@@ -219,7 +240,7 @@ async def on_message(message):
     message_list = message.content.split(' ', 3)
 
     # message parsing
-    if len(message_list) < 4:  # XX XX XX
+    if len(message_list) < 4 and not message.author.bot:  # XX XX XX
         if message_list[0] == '다음' or message_list[0] == 'ㄷㅇ':
             try:
                 if len(message_list) == 2 or message_list[2] == '경기':
@@ -251,7 +272,7 @@ async def on_message(message):
                         await search_next_match(channel, 'NS')
                     elif message_list[1] == 'T1' or message_list[1] == '개좆슼' or message_list[1] == '티원' \
                             or message_list[1] == '대황슼' or message_list[1] == 'SKT' or message_list[1] == '그팀' \
-                            or message_list[1] == 'skt' or message_list[1] == 't1':
+                            or message_list[1] == 'skt' or message_list[1] == 't1' or message_list[1] == 'ㅌㅇ':
                         await search_next_match(channel, 'T1')
                     elif message_list[1] == 'DRX' or message_list[1] == '듀렉스' or message_list[1] == '콘돔' \
                             or message_list[1] == 'drx':
@@ -266,6 +287,12 @@ async def on_message(message):
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
             await find_next_match(channel)
+
+        elif message_list[0] == '새로고침' or message_list[0] == 'ㅅㄹㄱㅊ':
+            await channel.send('새로 고치는 중...')
+            standing.refresh()
+            schedule.refresh()
+            await channel.send('새로고침 완료!')
 
         elif message_list[0] == '지난경기' or message_list[0] == 'ㅈㄴㄱㄱ' or message_list[0] == '누가이김' \
                 or message_list[0] == 'ㄴㄱㅇㄱ':
@@ -285,12 +312,10 @@ async def on_message(message):
             current_time = '현재 시각: ' + str(
                 pd.to_datetime(np.datetime64(datetime.datetime.now(), '[m]'), format='%Y-%m-%dT%H'))
             print(current_time)
-            await channel.send('목록을 새로 고칩니다...')
             await today_match(channel)
 
 
 async def standing_whole_list(channel):
-    standing.refresh()
     result = ['LCK 순위표:']
     for index, row in standing.result_df.iterrows():
         result.append('\n')

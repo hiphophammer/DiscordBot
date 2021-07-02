@@ -416,7 +416,6 @@ class LckSchedule:
         return self.result_df_future[target_index:target_index+1], target_index
 
     def get_last_match(self):
-        self.refresh()
         return self.result_df_past[len(self.result_df_past)-1:len(self.result_df_past)], len(self.result_df_past)-1
 
     def get_next_match(self):
@@ -438,7 +437,6 @@ class LckSchedule:
             return False
 
     def get_todays_matches(self):
-        self.refresh()
         print('--- done refreshing, getting today\'s schedule...')
         # today game
         today_date = pd.to_datetime(np.datetime64(datetime.datetime.now(), '[m]'), format='%Y-%m-%dT%H')
