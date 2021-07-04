@@ -49,9 +49,6 @@ async def check():
             await channel.send('https://www.twitch.tv/lck_korea')
             await today_match()
             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
-            stream_on = True
-    if stream_on:
-        pass
 
 
 @client.event
