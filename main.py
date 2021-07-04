@@ -5,6 +5,7 @@ import os
 from discord.ext import tasks, commands
 from datetime import datetime as dt
 import datetime
+import requests
 
 import pandas as pd
 import numpy as np
@@ -33,7 +34,7 @@ stream_on = False
 
 
 @tasks.loop(minutes=1)
-async def check():
+async def check(stream_on=stream_on):
     # 노인정
     channel = client.get_channel(634035246592950284)
 
@@ -49,6 +50,13 @@ async def check():
             await channel.send('https://www.twitch.tv/lck_korea')
             await today_match()
             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
+            stream_on = True
+    elif stream_on:
+        contents = requests.get('https://www.twitch.tv/pikra10').content.decode('utf-8')
+        if 'isLiveBroadcast' not in contents:
+            standing.refresh()
+            schedule.refresh()
+            await client.change_presence(activity=discord.Game(name="칽"))
 
 
 @client.event
