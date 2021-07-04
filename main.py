@@ -4,8 +4,8 @@ import lckStanding
 import os
 from discord.ext import tasks, commands
 from datetime import datetime as dt
-import datetime
 import requests
+import datetime
 
 import pandas as pd
 import numpy as np
