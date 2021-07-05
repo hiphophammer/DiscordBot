@@ -30,11 +30,9 @@ emoji_soldier = '<:soldier:857954470604570655>'
 
 commands = []  # 명령어 큐
 
-stream_on = False
-
 
 @tasks.loop(minutes=1)
-async def check(stream_on=stream_on):
+async def check():
     # 노인정
     channel = client.get_channel(634035246592950284)
 
@@ -43,6 +41,7 @@ async def check(stream_on=stream_on):
         print('time: ', time_now, ', refreshing...')
         standing.refresh()
         schedule.refresh()
+        print('refreshed')
 
     if time_now.minute == 0 and time_now.hour == 17:
         past, current, future = schedule.get_todays_matches()
@@ -50,8 +49,7 @@ async def check(stream_on=stream_on):
             await channel.send('https://www.twitch.tv/lck_korea')
             await today_match()
             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
-            stream_on = True
-    elif stream_on:
+    elif client.activity is discord.Streaming:
         contents = requests.get('https://www.twitch.tv/pikra10').content.decode('utf-8')
         if 'isLiveBroadcast' not in contents:
             standing.refresh()
