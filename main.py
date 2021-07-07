@@ -47,7 +47,7 @@ async def check():
         past, current, future = schedule.get_todays_matches()
         if not (len(past) == 0 and len(current) == 0 and len(future) == 0):
             await channel.send('https://www.twitch.tv/lck_korea')
-            await today_match()
+            await today_match(channel)
             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
     elif client.activity is discord.Streaming:
         contents = requests.get('https://www.twitch.tv/pikra10').content.decode('utf-8')
