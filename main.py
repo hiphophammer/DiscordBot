@@ -27,6 +27,7 @@ emoji_NS = '<:NS:856422574510702612>'
 emoji_T1 = '<:T1:856420309098954772>'
 emoji_DRX = '<:DRX:856422574329692170>'
 emoji_soldier = '<:soldier:857954470604570655>'
+emoji_cat = '<a:_cat_1:856502440567635968>'
 
 commands = []  # 명령어 큐
 
@@ -235,6 +236,24 @@ async def army_completion(channel):
     z = ''.join(result)
     await channel.send(z)
 
+async def quit_job(channel):
+    print('희수 날짜 계산...')
+    await channel.send(emoji_cat)
+    result = []
+    d_tday = datetime.date.today()
+    d1 = datetime.date(2022, 2, 25)
+    delta = d1 - d_tday
+    if delta.days > 2:
+        result.append('퇴사까지 ' + str(delta.days) + '일')
+    elif delta.days == 1:
+        result.append('퇴사까지 단 하루!!!')
+    elif delta.days == 0:
+        print('오늘!!!!!!!!!!!!!!!!!!!!!!')
+    else:
+        print('그만 물어봐.')
+    z = ''.join(result)
+    await channel.send(z)
+
 
 @client.event
 async def on_message(message):
@@ -292,6 +311,9 @@ async def on_message(message):
 
         elif message_list[0] == 'ㅈㄷ' or message_list[0] == '제대' or message_list[0] == '해방':
             await army_completion(channel)
+
+        elif message_list[0] == 'ㅌㅅ' or message_list[0] == '퇴사':
+            await quit_job(channel)
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
             await find_next_match(channel)
