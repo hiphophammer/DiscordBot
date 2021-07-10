@@ -6,6 +6,7 @@ from discord.ext import tasks, commands
 from datetime import datetime as dt
 import requests
 import datetime
+import random
 
 import pandas as pd
 import numpy as np
@@ -30,6 +31,19 @@ emoji_soldier = '<:soldier:857954470604570655>'
 emoji_cat = '<a:_cat_1:856502440567635968>'
 
 commands = []  # 명령어 큐
+
+emoji_cry = [
+             '<:pepe_back:852087148303220786>',
+             '<:pepe_cry:860868428838338591>',
+             '<:pep_reflection:853643796256784454>',
+             '<:cat7~1:852149097229058098>',
+             '<:cat6~1:852148820137738300>',
+             '<a:_pepe_sleep:856503214749122580>',
+             '<:doge_weak:852091041879818240>',
+             '<:cat1~1:823129249187495936>',
+             '<:pepe_sadge:852091041879818240>',
+             '<:pep:853643796193083402>',
+             ]
 
 
 @tasks.loop(minutes=1)
@@ -236,6 +250,11 @@ async def army_completion(channel):
     z = ''.join(result)
     await channel.send(z)
 
+async def han_degree(channel):
+    contents = requests.get('https://hangang.ivlis.kr/aapi.php?type=dgr')
+    await channel.send(emoji_cry[random.randint(0, 9)])
+    await channel.send(contents.text)
+
 async def quit_job(channel):
     print('희수 날짜 계산...')
     await channel.send(emoji_cat)
@@ -314,6 +333,11 @@ async def on_message(message):
 
         elif message_list[0] == 'ㅌㅅ' or message_list[0] == '퇴사':
             await quit_job(channel)
+            
+        elif message_list[0] == 'ㅎㄱ' or message_list[0] == '한강온도' or\
+            message_list[0] == '한강수온':
+            await han_degree(channel)
+
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
             await find_next_match(channel)
