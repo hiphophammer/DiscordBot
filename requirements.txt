@@ -6,3 +6,5 @@ numpy
 beautifulsoup4
 requests
 random
+time
+re
