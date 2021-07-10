@@ -5,5 +5,3 @@ pandas
 numpy
 beautifulsoup4
 requests
-time
-re
