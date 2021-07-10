@@ -250,10 +250,12 @@ async def army_completion(channel):
     z = ''.join(result)
     await channel.send(z)
 
+
 async def han_degree(channel):
     contents = requests.get('https://hangang.ivlis.kr/aapi.php?type=dgr')
     await channel.send(emoji_cry[random.randint(0, 9)])
     await channel.send(contents.text)
+
 
 async def quit_job(channel):
     print('희수 날짜 계산...')
