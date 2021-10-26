@@ -252,13 +252,15 @@ async def army_completion(channel):
 
 
 async def animated_emoji(channel, message): # 움짤
-    emoji = "<a:"
+    result = []
+    result.append('<a:')
     print ('printing')
     if message == '모덩이':
-        emoji.append("_mkk_dance:897626484796166244>")
+        result.append('_mkk_dance:897626484796166244>')
     elif message == '페페펀치1':
-        emoji.append("_pepe_punch01:854372448505561159>")
-    await channel.send(emoji)
+        result.append('_pepe_punch01:854372448505561159>')
+    z = ''.join(result)
+    await channel.send(z)
 
 
 async def han_degree(channel):
