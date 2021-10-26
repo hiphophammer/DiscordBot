@@ -12,7 +12,10 @@ import pandas as pd
 import numpy as np
 
 myToken = os.environ.get('MY_TOKEN')
+userToken = 'OTAyNDUzNDk3Njg4MTIxMzU1.YXepsw.9swHXOulpgVjbRAdZSm4cnt7xqM'
 channelID = 634035246592950284  # 노인정 일반
+comID = 902550990891401227
+loaID = 902490387233505321
 schedule = ls.LckSchedule()
 standing = lckStanding.LckStanding()
 client = commands.Bot(command_prefix="#")
@@ -299,8 +302,21 @@ async def on_message(message):
     channel = message.channel  # get this channel info
     message_list = message.content.split(' ', 3)
 
+    if channel.id == comID:
+        targetChan = client.get_channel(loaID)
+        await targetChan.send(message)
+
     # message parsing
-    if len(message_list) < 4 and not message.author.bot:  # XX XX XX
+    elif len(message_list) < 4 and not message.author.bot:  # XX XX XX
+        if message_list[0] == '모덩이':
+            await animated_emoji(channel, message_list[0])
+
+        elif message_list[0] == '페페펀치1':
+            await animated_emoji(channel, message_list[0])
+
+        elif message_list[0] == '만두펀치':
+            await animated_emoji(channel, message_list[0])
+
         if message_list[0] == '다음' or message_list[0] == 'ㄷㅇ':
             try:
                 if len(message_list) == 2 or message_list[2] == '경기':
@@ -351,13 +367,6 @@ async def on_message(message):
         elif message_list[0] == 'ㅎㄱ' or message_list[0] == '한강온도' or\
             message_list[0] == '한강수온':
             await han_degree(channel)
-
-        elif message_list[0] == '모덩이':
-            await animated_emoji(channel, message_list[0])
-
-        elif message_list[0] == '펀치1':
-            await animated_emoji(channel, message_list[0])
-
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
             await find_next_match(channel)
