@@ -262,6 +262,8 @@ async def animated_emoji(channel, message): # 움짤
         result.append('_mkk_dance:897626484796166244>')
     elif message == '페페펀치1':
         result.append('_pepe_punch01:854372448505561159>')
+    elif message == '만두펀치':
+        result.append('_misc_man2:853839945189163018>')
     z = ''.join(result)
     await channel.send(z)
 
