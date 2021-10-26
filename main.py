@@ -250,8 +250,10 @@ async def army_completion(channel):
     z = ''.join(result)
     await channel.send(z)
 
+
 async def animated_emoji(channel, message): # 움짤
     emoji = "<a:"
+    print ('printing')
     if message == '모덩이':
         emoji.append("_mkk_dance:897626484796166244>")
     await channel.send(emoji)
