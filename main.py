@@ -250,6 +250,10 @@ async def army_completion(channel):
     z = ''.join(result)
     await channel.send(z)
 
+async def animated_emoji(channel, message): # 움짤
+    emoji = ""
+    await channel.send(emoji)
+
 
 async def han_degree(channel):
     contents = requests.get('https://hangang.ivlis.kr/aapi.php?type=dgr')
