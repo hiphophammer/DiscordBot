@@ -306,7 +306,7 @@ async def on_message(message):
 
     if channel.id == comID:
         targetChan = client.get_channel(loaID)
-        await targetChan.send(message)
+        await targetChan.send(message.content)
 
     # message parsing
     elif len(message_list) < 4 and not message.author.bot:  # XX XX XX
