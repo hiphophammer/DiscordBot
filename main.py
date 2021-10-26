@@ -251,7 +251,9 @@ async def army_completion(channel):
     await channel.send(z)
 
 async def animated_emoji(channel, message): # 움짤
-    emoji = ""
+    emoji = "<a:"
+    if message == '모덩이':
+        emoji.append("_mkk_dance:897626484796166244>")
     await channel.send(emoji)
 
 
@@ -343,6 +345,9 @@ async def on_message(message):
         elif message_list[0] == 'ㅎㄱ' or message_list[0] == '한강온도' or\
             message_list[0] == '한강수온':
             await han_degree(channel)
+
+        elif message_list[0] == '모덩이':
+            await animated_emoji(message_list[0])
 
 
         elif message_list[0] == 'ㄷㅇㄱㄱ':
