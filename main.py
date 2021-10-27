@@ -51,7 +51,7 @@ emoji_cry = [
 wanderer_notice = ""
 
 
-@tasks.loop(minutes=1)
+@tasks.loop(seconds=30)
 async def check():
     time_now = dt.now()
     if time_now.minute == 55:
@@ -89,11 +89,24 @@ async def check():
             msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
         elif time_now.hour == 15:
             msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 16:
+            msg.append("> 페이튼, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 17:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 18:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 19:
+            msg.append("> 페이튼, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 20:
+            msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 21:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
         elif time_now.hour == 22:
             msg.append("> 페이튼, 루테른 동부, 유디아, 애니츠, 슈샤이어")
         elif time_now.hour == 23:
             msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-    await client.get_channel(loaID).send(msg)
+    z = ''.join(msg)
+    await client.get_channel(loaID).send(z)
 
 #     # 노인정
 #     channel = client.get_channel(634035246592950284)
