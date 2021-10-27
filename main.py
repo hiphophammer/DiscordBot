@@ -48,9 +48,52 @@ emoji_cry = [
              '<:pep:853643796193083402>',
              ]
 
+wanderer_notice = ""
 
-# @tasks.loop(minutes=1)
-# async def check():
+
+@tasks.loop(minutes=1)
+async def check():
+    time_now = dt.now()
+    if time_now.minute == 55:
+        wipe_channel(client.get_channel(loaID))
+        msg = ["> 다음 지역: \n"]
+        if time_now.hour == 0:
+            msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 1:
+            msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 2:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
+        elif time_now.hour == 3:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 4:
+            msg.append("> 페이튼, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 5:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 6:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 7:
+            msg.append("> 아르테미스, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 8:
+            msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 9:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
+        elif time_now.hour == 10:
+            msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 11:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 12:
+            msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 13:
+            msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+        elif time_now.hour == 14:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
+        elif time_now.hour == 15:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 22:
+            msg.append("> 페이튼, 루테른 동부, 유디아, 애니츠, 슈샤이어")
+        elif time_now.hour == 23:
+            msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+
 #     # 노인정
 #     channel = client.get_channel(634035246592950284)
 #
@@ -79,7 +122,7 @@ emoji_cry = [
 async def on_ready():
     # logged on
     print('Logged in as {0.user}'.format(client))
-    # check.start()
+    check.start()
 
 
 async def today_match(channel):
@@ -290,10 +333,8 @@ async def quit_job(channel):
 
 
 async def wipe_channel(channel, msg = ""):
-    last_msg = channel.last_message
-    while last_msg is not None:
-        await last_msg.delete()
-        last_msg = channel.last_message
+    async for m in channel.history():
+        await m.delete()
     if msg != "":
         await channel.send(msg)
 
