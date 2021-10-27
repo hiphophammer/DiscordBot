@@ -303,19 +303,19 @@ async def on_message(message):
     if channel.id == comID:
         target_chan = client.get_channel(loaID)
         msg = await target_chan.send(message.content)
-        await client.add_reaction(msg, "✅")
+        await msg.add_reaction("✅")
 
     if not message.author.bot and channel.id == 902490387233505321:
         if len(message_list) == 1:
             if message_list[0] == '~영호':
                 role = discord.utils.get(message.author.guild.roles, id=902726238844637234)
                 await message.author.add_roles(role)
-                await message.delete(message)
+                await message.delete()
                 await channel.send(":mk_4:889863718748442654")
             elif message_list[0] == '~전호':
                 role = discord.utils.get(message.author.guild.roles, id=902726400463745054)
                 await message.author.add_roles(role)
-                await message.delete(message)
+                await message.delete()
                 await channel.send(":mk_4:889863718748442654")
 
     # message parsing
