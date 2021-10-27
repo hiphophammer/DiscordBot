@@ -51,7 +51,7 @@ emoji_cry = [
 wanderer_notice = ""
 
 
-@tasks.loop(seconds=30)
+@tasks.loop(seconds=60)
 async def check():
     time_now = dt.now()
     print("checking... time_now: " + time_now.strftime('%m월 %d일 %H시 %M분 %S초'))
@@ -106,8 +106,8 @@ async def check():
             msg.append("> 페이튼, 루테른 동부, 유디아, 애니츠, 슈샤이어")
         elif time_now.hour == 23:
             msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-    z = ''.join(msg)
-    await client.get_channel(loaID).send(z)
+        z = ''.join(msg)
+        await client.get_channel(loaID).send(z)
 
 #     # 노인정
 #     channel = client.get_channel(634035246592950284)
