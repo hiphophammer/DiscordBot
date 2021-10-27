@@ -357,7 +357,7 @@ async def on_message(message):
                 await message.delete()
                 await channel.send("<:mk_4:889863718748442654>")
             elif message_list[0] == "~wipe":
-                wipe_channel(channel)
+                await wipe_channel(channel)
 
     # message parsing
     elif len(message_list) < 4 and not message.author.bot:  # XX XX XX
