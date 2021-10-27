@@ -54,6 +54,7 @@ wanderer_notice = ""
 @tasks.loop(seconds=30)
 async def check():
     time_now = dt.now()
+    print("checking... time_now: " + time_now.strftime('%m월 %d일 %H시 %M분 %S초'))
     if time_now.minute == 55:
         await wipe_channel(client.get_channel(loaID))
         msg = ["> 다음 지역: \n"]
