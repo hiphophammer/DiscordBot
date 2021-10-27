@@ -49,37 +49,37 @@ emoji_cry = [
              ]
 
 
-@tasks.loop(minutes=1)
-async def check():
-    # 노인정
-    channel = client.get_channel(634035246592950284)
-
-    time_now = dt.now()
-    if time_now.minute % 10 == 9:
-        print('time: ', time_now, ', refreshing...')
-        standing.refresh()
-        schedule.refresh()
-        print('refreshed')
-
-    if time_now.minute == 0 and time_now.hour == 17:
-        past, current, future = schedule.get_todays_matches()
-        if not (len(past) == 0 and len(current) == 0 and len(future) == 0):
-            await channel.send('https://www.twitch.tv/lck_korea')
-            await today_match(channel)
-            await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
-    elif client.activity is discord.Streaming:
-        contents = requests.get('https://www.twitch.tv/pikra10').content.decode('utf-8')
-        if 'isLiveBroadcast' not in contents:
-            standing.refresh()
-            schedule.refresh()
-            await client.change_presence(activity=discord.Game(name="칽"))
+# @tasks.loop(minutes=1)
+# async def check():
+#     # 노인정
+#     channel = client.get_channel(634035246592950284)
+#
+#     time_now = dt.now()
+#     if time_now.minute % 10 == 9:
+#         print('time: ', time_now, ', refreshing...')
+#         standing.refresh()
+#         schedule.refresh()
+#         print('refreshed')
+#
+#     if time_now.minute == 0 and time_now.hour == 17:
+#         past, current, future = schedule.get_todays_matches()
+#         if not (len(past) == 0 and len(current) == 0 and len(future) == 0):
+#             await channel.send('https://www.twitch.tv/lck_korea')
+#             await today_match(channel)
+#             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
+#     elif client.activity is discord.Streaming:
+#         contents = requests.get('https://www.twitch.tv/pikra10').content.decode('utf-8')
+#         if 'isLiveBroadcast' not in contents:
+#             standing.refresh()
+#             schedule.refresh()
+#             await client.change_presence(activity=discord.Game(name="칽"))
 
 
 @client.event
 async def on_ready():
     # logged on
     print('Logged in as {0.user}'.format(client))
-    check.start()
+    # check.start()
 
 
 async def today_match(channel):
@@ -285,10 +285,6 @@ async def quit_job(channel):
         result.append('퇴사까지 ' + str(delta.days) + '일')
     elif delta.days == 1:
         result.append('퇴사까지 단 하루!!!')
-    elif delta.days == 0:
-        print('오늘!!!!!!!!!!!!!!!!!!!!!!')
-    else:
-        print('그만 물어봐.')
     z = ''.join(result)
     await channel.send(z)
 
@@ -306,7 +302,21 @@ async def on_message(message):
 
     if channel.id == comID:
         target_chan = client.get_channel(loaID)
-        await target_chan.send(message.content)
+        msg = await target_chan.send(message.content)
+        await client.add_reaction(msg, ":white_check_mark: ")
+
+    if not message.author.bot and channel.id == 902490387233505321:
+        if len(message_list) == 1:
+            if message_list[0] == '~영호':
+                role = discord.utils.get(message.author.server.roles, name="영호")
+                await client.add_roles(message.author, role)
+                await message.delete(message)
+                await channel.send(":mk_4:889863718748442654")
+            elif message_list[0] == '~전호':
+                role = discord.utils.get(message.author.server.roles, name="전호")
+                await client.add_roles(message.author, role)
+                await message.delete(message)
+                await channel.send(":mk_4:889863718748442654")
 
     # message parsing
     elif len(message_list) < 4 and not message.author.bot:  # XX XX XX
