@@ -55,7 +55,7 @@ wanderer_notice = ""
 async def check():
     time_now = dt.now()
     if time_now.minute == 55:
-        wipe_channel(client.get_channel(loaID))
+        await wipe_channel(client.get_channel(loaID))
         msg = ["> 다음 지역: \n"]
         if time_now.hour == 0:
             msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
@@ -93,6 +93,7 @@ async def check():
             msg.append("> 페이튼, 루테른 동부, 유디아, 애니츠, 슈샤이어")
         elif time_now.hour == 23:
             msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+    await client.get_channel(loaID).send(msg)
 
 #     # 노인정
 #     channel = client.get_channel(634035246592950284)
