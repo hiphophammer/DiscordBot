@@ -303,7 +303,7 @@ async def on_message(message):
     if channel.id == comID:
         target_chan = client.get_channel(loaID)
         msg = await target_chan.send(message.content)
-        await client.add_reaction(msg, ":white_check_mark: ")
+        await client.add_reaction(msg, "✅")
 
     if not message.author.bot and channel.id == 902490387233505321:
         if len(message_list) == 1:
