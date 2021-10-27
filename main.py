@@ -302,21 +302,42 @@ async def on_message(message):
 
     if channel.id == comID:
         target_chan = client.get_channel(loaID)
-        msg = await target_chan.send(message.content)
+        lines = message.content.splitlines()
+        result = []
+        if len(lines) == 1:
+            pass
+        else:
+            result += lines[0]
+            result += " "
+            result += lines[1]
+            result += " "
+            if "True" in lines[3]: # 웨이 뜸, 숭이들 다 부르기
+                result += "웨이 "
+                role = discord.utils.get(message.author.guild.roles, id=890387331524227093)
+                result += role.mention
+            else: # 웨이 안 뜸, 영호/전호 멘션
+                if "전호" in lines[2]:
+                    role = discord.utils.get(message.author.guild.roles, id=902726400463745054)
+                    result += role.mention
+                else:
+                    role = discord.utils.get(message.author.guild.roles, id=902726238844637234)
+                    result += role.mention
+        z = ''.join(result)
+        msg = await target_chan.send(z)
         await msg.add_reaction("✅")
 
     if not message.author.bot and channel.id == 902490387233505321:
         if len(message_list) == 1:
             if message_list[0] == '~영호':
-                role = discord.utils.get(message.author.guild.roles, id=902726238844637234)
+                role = discord.utils.get(message.author.guild.roles, id=902726238844637234) # 영호롤
                 await message.author.add_roles(role)
                 await message.delete()
-                await channel.send(":mk_4:889863718748442654")
+                await channel.send("<:mk_4:889863718748442654>")
             elif message_list[0] == '~전호':
-                role = discord.utils.get(message.author.guild.roles, id=902726400463745054)
+                role = discord.utils.get(message.author.guild.roles, id=902726400463745054) # 전호롤
                 await message.author.add_roles(role)
                 await message.delete()
-                await channel.send(":mk_4:889863718748442654")
+                await channel.send("<:mk_4:889863718748442654>")
 
     # message parsing
     elif len(message_list) < 4 and not message.author.bot:  # XX XX XX
