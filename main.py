@@ -309,12 +309,12 @@ async def on_message(message):
         if len(message_list) == 1:
             if message_list[0] == '~영호':
                 role = discord.utils.get(message.author.guild.roles, id=902726238844637234)
-                await client.add_roles(message.author, role)
+                await message.author.add_roles(role)
                 await message.delete(message)
                 await channel.send(":mk_4:889863718748442654")
             elif message_list[0] == '~전호':
                 role = discord.utils.get(message.author.guild.roles, id=902726400463745054)
-                await client.add_roles(message.author, role)
+                await message.author.add_roles(role)
                 await message.delete(message)
                 await channel.send(":mk_4:889863718748442654")
 
