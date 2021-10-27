@@ -292,7 +292,7 @@ async def quit_job(channel):
 async def wipe_channel(channel, msg = ""):
     last_msg = channel.last_message
     while last_msg is not None:
-        last_msg.delete()
+        await last_msg.delete()
         last_msg = channel.last_message
     if msg != "":
         await channel.send(msg)
