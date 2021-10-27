@@ -304,6 +304,7 @@ async def on_message(message):
         target_chan = client.get_channel(loaID)
         lines = message.content.splitlines()
         result = []
+        legen = False
         if len(lines) == 1:
             pass
         else:
@@ -319,12 +320,21 @@ async def on_message(message):
                 if "전호" in lines[2]:
                     role = target_chan.guild.get_role(902726400463745054)
                     result += role.mention
+                    legen = True
                 else:
                     role = target_chan.guild.get_role(902726238844637234)
                     result += role.mention
         z = ''.join(result)
         msg = await target_chan.send(z)
         await msg.add_reaction("✅")
+        await msg.add_reaction("❔")
+        if legen:
+            await msg.add_reaction("<:text_01:840395302254936124>")
+            await msg.add_reaction("<:text_02:840395302140903484>")
+            await msg.add_reaction("<:text_03:840395301902221323>")
+            await msg.add_reaction("<:text_04:840395301713084476>")
+            await msg.add_reaction("<:text_05:840395302019530812>")
+
 
     if not message.author.bot and channel.id == 902490387233505321:
         if len(message_list) == 1:
