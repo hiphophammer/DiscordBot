@@ -313,14 +313,14 @@ async def on_message(message):
             result += " "
             if "True" in lines[3]: # 웨이 뜸, 숭이들 다 부르기
                 result += "웨이 "
-                role = discord.utils.get(message.author.guild.roles, id=890387331524227093)
+                role = target_chan.guild.get_role(890387331524227093)
                 result += role.mention
             else: # 웨이 안 뜸, 영호/전호 멘션
                 if "전호" in lines[2]:
-                    role = discord.utils.get(message.author.guild.roles, id=902726400463745054)
+                    role = target_chan.guild.get_role(902726400463745054)
                     result += role.mention
                 else:
-                    role = discord.utils.get(message.author.guild.roles, id=902726238844637234)
+                    role = target_chan.guild.get_role(902726238844637234)
                     result += role.mention
         z = ''.join(result)
         msg = await target_chan.send(z)
