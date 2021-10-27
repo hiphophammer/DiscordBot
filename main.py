@@ -289,6 +289,15 @@ async def quit_job(channel):
     await channel.send(z)
 
 
+async def wipe_channel(channel, msg = ""):
+    last_msg = channel.last_message()
+    while last_msg is not None:
+        last_msg.delete()
+        last_msg = channel.last_message()
+    if msg != "":
+        await channel.send(msg)
+
+
 @client.event
 async def on_message(message):
     # ------- for debugging: prints all messages --------- #
@@ -335,7 +344,6 @@ async def on_message(message):
             await msg.add_reaction("<:text_04:840395301713084476>")
             await msg.add_reaction("<:text_05:840395302019530812>")
 
-
     if not message.author.bot and channel.id == 902490387233505321:
         if len(message_list) == 1:
             if message_list[0] == '~영호':
@@ -348,6 +356,8 @@ async def on_message(message):
                 await message.author.add_roles(role)
                 await message.delete()
                 await channel.send("<:mk_4:889863718748442654>")
+            elif message_list[0] == "~wipe":
+                wipe_channel(channel)
 
     # message parsing
     elif len(message_list) < 4 and not message.author.bot:  # XX XX XX
