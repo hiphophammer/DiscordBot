@@ -493,13 +493,15 @@ async def show_map(channel, txt):
     file = discord.File(fpath, filename="map.png")
     await channel.send("", file=file)
 
+
 @client.event
-async def on_reaction_add(reaction, usr):
-    if not usr.bot:
+async def on_reaction_add(reaction, user):
+    if not user.bot:
+        print("reaction added, user is not bot")
         channel = reaction.message.channel
         if channel.id == loaID and reaction.emoji == "🗺️":
+            print("added map reaction in 떠상 channel by user " + user.display_name)
             await show_map(channel, reaction.message.content)
-
 
 
 @client.event
