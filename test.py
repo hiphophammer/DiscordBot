@@ -1,34 +1,23 @@
-import lckSchedule as ls
+import discord
+import os
 
-schedule = ls.LckSchedule()
+userToken = "Mjg1NjUxMTM3OTU5NTU5MTY4.WLO_Wg.tQOBIlY4j7jyXL7q3ylJhhnZJ0M"
 
-# TODO: 아직 LCK (하루 2경기) 시즌 중 게임만 지원함. 다른 게임 숫자도 지원하게 만들 것
-games = {schedule.raw_soup[0], schedule.raw_soup[1]}
-league = []
-teams = []
-hours = []
-ampmlist = []
 
-for game in games: # iterate for each game
-    for team in game.find_all('span', {"class": "tricode"}): # add teams for each game
-        teams.append(team.text)
-    for hour in game.find_all('span', {"class": "hour"}): # add teams for each game
-        hours.append(hour.text)
-    for ampm in game.find_all('span', {"class": "ampm"}): # add teams for each game
-        ampmlist.append(ampm.text)
-    for leagueElem in game.find_all('div', {"class": "name"}):
-        league.append(leagueElem.text)
+class chatbot(discord.Client):
+    async def on_ready(self):
+        print('Logged in')
 
-print('games:', games)
-print('teams: ', teams)
-print('hours: ', hours)
-print('ampm: ', ampmlist)
-print('league: ', league)
+    async def on_message(self, msg):
+        if msg.content == '~add':
+            fpath = os.path.join('resources', 'wanderer_maps', '아르테미스', '로그힐')
+            file = discord.File(fpath, filename="로그힐.png")
+            await msg.channel.send("", file=file)
+            print('Done')
 
-for i in range(0, len(games)):
-    print(i+1, '경기: ', teams[(2*i)], ' vs ', teams[(2*i)+1],
-          ', ', ampmlist[i], ' ', hours[i], '시')
 
-# print(teams)
-# print('1경기: ', teams[0], ' vs ', teams[1])
-# print('')
+
+
+
+client = chatbot()
+client.run(userToken)

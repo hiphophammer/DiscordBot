@@ -353,17 +353,152 @@ async def wipe_channel(channel, msg = ""):
     if msg != "":
         await channel.send(msg)
 
+async def show_map(channel, txt):
+    fname = "klee"
+    if '아르테미스' in txt:
+        if '로그' in txt:
+            fname = '로그힐'
+        elif '모스' in txt or '안게' in txt:
+            fname = '안게모스'
+        elif '국경' in txt:
+            fname = '국경지대'
+    elif '유디아' in txt:
+        if '살란' in txt:
+            fname = '살란드'
+        elif '오즈' in txt:
+            fname = '오즈혼'
+    elif '루테란' in txt:
+        if '서부' in txt:
+            if '빌브' in txt:
+                fname = '빌브린'
+            elif '격전' in txt or '평야' in txt:
+                fname = '격전의'
+            elif '메드' in txt or '수도' in txt:
+                fname = '메드리닉'
+            elif '레이크' in txt:
+                fname = '레이크바'
+            elif '자고' in txt:
+                fname = '자고라스'
+        elif '동부' in txt:
+            if '크로' in txt:
+                fname = '크로커니스'
+            elif '해무리' in txt:
+                fname = '해무리'
+            elif '보레아' in txt:
+                fname = '보레아'
+            elif '라이아' in txt:
+                fname = '라이아'
+            elif '흑장미' in txt:
+                fname = '흑장미'
+            elif '디오' in txt:
+                fname = '디오리카'
+            elif '배꽃' in txt:
+                fname = '배꽃나무'
+    elif '베른' in txt and '자베른' not in txt:
+        if '남부' in txt:
+            if '벨리' in txt:
+                fname = '벨리온'
+            elif '칸다' in txt:
+                fname = '칸다리아'
+        elif '북부' in txt:
+            if '크로나' in txt:
+                fname = '크로나'
+            elif '파르나' in txt:
+                fname = '파르나'
+            elif '베르닐' in txt:
+                fname = '베르닐'
+            elif '발란' in txt:
+                fname = '발란카르'
+            elif '페스나르' in txt:
+                fname = '페스나르'
+    elif '토토이크' in txt:
+        if '바다' in txt:
+            fname = '바다향기'
+        elif '달콤' in txt:
+            fname = '달콤한'
+        elif '성큼' in txt:
+            fname = '성큼바위'
+        elif '침묵' in txt:
+            fname = '침묵하는'
+    elif '애니츠' in txt:
+        if '델파' in txt:
+            fname = '델파이'
+        elif '등나' in txt:
+            fname = '등나무'
+        elif '소리' in txt:
+            fname = '소리의'
+        elif '황혼' in txt:
+            fname = '황혼의'
+        elif '거울' in txt:
+            fname = '거울'
+    elif '아르데타인' in txt or '아르데' in txt:
+        if '토트' in txt:
+            fname = '토트리치'
+        elif '메마' in txt:
+            fname = '메마른'
+        elif '갈라진' in txt:
+            fname = '갈라진'
+        elif '네벨' in txt:
+            fname = '네벨호른'
+        elif '바람' in txt:
+            fname = '바람결'
+        elif '리제' in txt:
+            fname = '리제'
+    elif '슈샤' in txt:
+        if '얼어' in txt or '얼바' in txt:
+            fname = '얼어붙은'
+        elif '칼날' in txt:
+            fname = '칼날바람'
+        elif '서리' in txt:
+            fname = '서리감옥'
+        elif '머무른' in txt or '호수' in txt:
+            fname = '머무른'
+        elif '얼음' in txt:
+            fname = '얼음나비'
+    elif '로헨델' in txt:
+        if '엘조' in txt or '그늘' in txt:
+            fname = '엘조윈의'
+        elif '은빛' in txt:
+            fname = '은빛물결'
+        elif '유리' in txt:
+            fname = '유리연꽃'
+        elif '바람' in txt or '호수' in txt:
+            fname = '바람향기'
+        elif '제나' in txt:
+            fname = '파괴된'
+    elif '욘' in txt:
+        if '시작' in txt:
+            fname = '시작의'
+        elif '미완' in txt:
+            fname = '미완의'
+        elif '검은' in txt:
+            fname = '검은모루'
+        elif '무쇠' in txt:
+            fname = '무쇠망치'
+        elif '기약' in txt:
+            fname = '기약의'
+    elif '페이튼' in txt:
+        fname = '칼라자 마을'
+    elif '파푸니카' in txt:
+        if '바닷길' in txt or '얕바' in txt:
+            fname = '얕은'
+        elif '별모' in txt:
+            fname = '별모래'
+        elif '티카' in txt:
+            fname = '티카티카'
+        elif '비밀' in txt or '비숲' in txt:
+            fname = '비밀의'
+
+    fpath = os.path.join('resources', 'wanderer_maps', fname)
+    file = discord.File(fpath, filename="map.png")
+    await channel.send("", file=file)
 
 @client.event
 async def on_reaction_add(reaction, usr):
     if not usr.bot:
         channel = reaction.message.channel
         if channel.id == loaID and reaction.emoji == "🗺️":
-            result = []
-            if "유디아" in reaction.message.content:
-                result.append("유디아 지도")
-            z = ''.join(result)
-            await channel.send(z)
+            await show_map(channel, reaction.message.content)
 
 
 
