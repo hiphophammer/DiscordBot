@@ -51,9 +51,39 @@ emoji_cry = [
 
 wanderer_notice = ""
 
+#     # 노인정
+#     channel = client.get_channel(634035246592950284)
+#
+#     time_now = dt.now()
+#     if time_now.minute % 10 == 9:
+#         print('time: ', time_now, ', refreshing...')
+#         standing.refresh()
+#         schedule.refresh()
+#         print('refreshed')
+#
+#     if time_now.minute == 0 and time_now.hour == 17:
+#         past, current, future = schedule.get_todays_matches()
+#         if not (len(past) == 0 and len(current) == 0 and len(future) == 0):
+#             await channel.send('https://www.twitch.tv/lck_korea')
+#             await today_match(channel)
+#             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
+#     elif client.activity is discord.Streaming:
+#         contents = requests.get('https://www.twitch.tv/pikra10').content.decode('utf-8')
+#         if 'isLiveBroadcast' not in contents:
+#             standing.refresh()
+#             schedule.refresh()
+#             await client.change_presence(activity=discord.Game(name="칽"))
+
+
+@client.event
+async def on_ready():
+    # logged on
+    print('Logged in as {0.user}'.format(client))
+    check.start()
 
 @tasks.loop(seconds=1)
 async def check():
+    global last_checked_minute
     time_now = dt.now()
     print("checking... time_now: " + time_now.strftime('%m월 %d일 %H시 %M분 %S초'))
     if last_checked_minute != time_now.minute: # do every minute
@@ -111,36 +141,6 @@ async def check():
                 msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
             z = ''.join(msg)
             await client.get_channel(loaID).send(z)
-
-#     # 노인정
-#     channel = client.get_channel(634035246592950284)
-#
-#     time_now = dt.now()
-#     if time_now.minute % 10 == 9:
-#         print('time: ', time_now, ', refreshing...')
-#         standing.refresh()
-#         schedule.refresh()
-#         print('refreshed')
-#
-#     if time_now.minute == 0 and time_now.hour == 17:
-#         past, current, future = schedule.get_todays_matches()
-#         if not (len(past) == 0 and len(current) == 0 and len(future) == 0):
-#             await channel.send('https://www.twitch.tv/lck_korea')
-#             await today_match(channel)
-#             await client.change_presence(activity=discord.Streaming(name="LCK", url="https://www.twitch.tv/lck_korea"))
-#     elif client.activity is discord.Streaming:
-#         contents = requests.get('https://www.twitch.tv/pikra10').content.decode('utf-8')
-#         if 'isLiveBroadcast' not in contents:
-#             standing.refresh()
-#             schedule.refresh()
-#             await client.change_presence(activity=discord.Game(name="칽"))
-
-
-@client.event
-async def on_ready():
-    # logged on
-    print('Logged in as {0.user}'.format(client))
-    check.start()
 
 
 async def today_match(channel):
