@@ -355,6 +355,19 @@ async def wipe_channel(channel, msg = ""):
 
 
 @client.event
+async def on_reaction_add(reaction, usr):
+    if not usr.bot:
+        channel = reaction.message.channel
+        if channel.id == loaID and reaction.emoji == "🗺️":
+            result = []
+            if "유디아" in reaction.message.content:
+                result.append("유디아 지도")
+            z = ''.join(result)
+            await channel.send(z)
+
+
+
+@client.event
 async def on_message(message):
     # ------- for debugging: prints all messages --------- #
     if not message.author.bot:  # do only if message is sent from user
@@ -392,13 +405,13 @@ async def on_message(message):
         z = ''.join(result)
         msg = await target_chan.send(z)
         await msg.add_reaction("✅")
-        await msg.add_reaction("❔")
+        await msg.add_reaction("🗺️")
         if legen:
-            await msg.add_reaction("<:text_01:840395302254936124>")
-            await msg.add_reaction("<:text_02:840395302140903484>")
-            await msg.add_reaction("<:text_03:840395301902221323>")
-            await msg.add_reaction("<:text_04:840395301713084476>")
-            await msg.add_reaction("<:text_05:840395302019530812>")
+            await msg.add_reaction("<:text_01:903195468127932446>")
+            await msg.add_reaction("<:text_02:903195468350255125>")
+            await msg.add_reaction("<:text_03:903195467972759573>")
+            await msg.add_reaction("<:text_04:903195468169887764>")
+            await msg.add_reaction("<:text_05:903195468065046549>")
 
     if not message.author.bot and channel.id == 902490387233505321:
         if len(message_list) == 1:
