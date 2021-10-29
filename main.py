@@ -330,6 +330,20 @@ async def quit_job(channel):
     z = ''.join(result)
     await channel.send(z)
 
+async def eightsix(channel):
+    print('희수 날짜 계산...')
+    await channel.send(emoji_cat)
+    result = []
+    d_tday = datetime.date.today()
+    d1 = datetime.date(2022, 2, 25)
+    delta = d1 - d_tday
+    if delta.days > 2:
+        result.append('퇴사까지 ' + str(delta.days) + '일')
+    elif delta.days == 1:
+        result.append('퇴사까지 단 하루!!!')
+    z = ''.join(result)
+    await channel.send(z)
+
 
 async def wipe_channel(channel, msg = ""):
     async for m in channel.history():
@@ -636,10 +650,9 @@ async def on_message(message):
             await today_match(channel)
 
 
-async def send_gif(channel, message):
+async def send_gif(channel, txt):
     fname = "unknown.gif"
     folder = "unknonwn"
-    txt = message.content
     if '만두' in txt:
         if txt[2:] == "01":
             fname = "icon_1.gif"
