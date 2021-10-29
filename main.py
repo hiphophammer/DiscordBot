@@ -693,7 +693,7 @@ async def send_gif(channel, txt):
     else:
         fname = "unknown.gif"
     fpath = os.path.join('resources', 'emojis', folder, fname)
-    file = discord.File(fpath, filename="dccon.png")
+    file = discord.File(fpath, filename="dccon.gif")
     await channel.send("", file=file)
 
 
