@@ -330,19 +330,19 @@ async def quit_job(channel):
     z = ''.join(result)
     await channel.send(z)
 
-async def eightsix(channel):
-    print('희수 날짜 계산...')
-    await channel.send(emoji_cat)
-    result = []
-    d_tday = datetime.date.today()
-    d1 = datetime.date(2022, 2, 25)
-    delta = d1 - d_tday
-    if delta.days > 2:
-        result.append('퇴사까지 ' + str(delta.days) + '일')
-    elif delta.days == 1:
-        result.append('퇴사까지 단 하루!!!')
-    z = ''.join(result)
-    await channel.send(z)
+# async def eightsix(channel):
+#     print('다음 에이티식스...')
+#     await channel.send(emoji_cat)
+#     result = []
+#     d_tday = datetime.datetime.today()
+#     d1 = datetime.datetime(2022, 2, 25)
+#     delta = d1 - d_tday
+#     if delta.days > 2:
+#         result.append('퇴사까지 ' + str(delta.days) + '일')
+#     elif delta.days == 1:
+#         result.append('퇴사까지 단 하루!!!')
+#     z = ''.join(result)
+#     await channel.send(z)
 
 
 async def wipe_channel(channel, msg = ""):
@@ -655,28 +655,40 @@ async def send_gif(channel, txt):
     folder = "unknonwn"
     if '만두' in txt:
         if txt[2:] == "01":
+            folder = "mandu"
             fname = "icon_1.gif"
         elif txt[2:] == "02":
+            folder = "mandu"
             fname = "icon_2.gif"
         elif txt[2:] == "03":
+            folder = "mandu"
             fname = "icon_3.gif"
         elif txt[2:] == "04":
+            folder = "mandu"
             fname = "icon_4.gif"
         elif txt[2:] == "05":
+            folder = "mandu"
             fname = "icon_5.gif"
         elif txt[2:] == "06":
+            folder = "mandu"
             fname = "icon_6.gif"
         elif txt[2:] == "07" or txt[2:] == "펀치":
+            folder = "mandu"
             fname = "icon_7.gif"
         elif txt[2:] == "08":
+            folder = "mandu"
             fname = "icon_8.gif"
         elif txt[2:] == "09":
+            folder = "mandu"
             fname = "icon_9.gif"
         elif txt[2:] == "10":
+            folder = "mandu"
             fname = "icon_10.gif"
         elif txt[2:] == "12":
+            folder = "mandu"
             fname = "icon_12.gif"
         elif txt[2:] == "13":
+            folder = "mandu"
             fname = "icon_13.gif"
     else:
         fname = "unknown.gif"
