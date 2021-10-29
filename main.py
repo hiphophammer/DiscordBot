@@ -296,25 +296,6 @@ async def search_next_match(channel, team):
     await channel.send(z)
 
 
-async def army_completion(channel):
-    print('제대 날짜 계산...')
-    await channel.send(emoji_soldier)
-    result = []
-    d_tday = datetime.date.today()
-    d1 = datetime.date(2021, 9, 9)
-    delta = d1 - d_tday
-    if delta.days > 2:
-        result.append('제대까지 ' + str(delta.days) + '일')
-    elif delta.days == 1:
-        result.append('제대까지 단 하루!!!')
-    elif delta.days == 0:
-        print('오늘!!!!!!!!!!!!!!!!!!!!!!')
-    else:
-        print('그만 물어봐.')
-    z = ''.join(result)
-    await channel.send(z)
-
-
 async def animated_emoji(channel, message): # 움짤
     result = []
     result.append('<a:')
@@ -569,14 +550,12 @@ async def on_message(message):
                 await wipe_channel(channel)
 
     # message parsing
+    elif len(message_list) == 1 and not message.author.bot:
+        if '만두' in message_list[0]:
+            await send_gif(channel, message_list[0])
+
     elif len(message_list) < 4 and not message.author.bot:  # XX XX XX
         if message_list[0] == '모덩이':
-            await animated_emoji(channel, message_list[0])
-
-        elif message_list[0] == '페페펀치1':
-            await animated_emoji(channel, message_list[0])
-
-        elif message_list[0] == '만두펀치':
             await animated_emoji(channel, message_list[0])
 
         if message_list[0] == '다음' or message_list[0] == 'ㄷㅇ':
@@ -620,12 +599,9 @@ async def on_message(message):
             except Exception as e:
                 print('exception!', e)
 
-        elif message_list[0] == 'ㅈㄷ' or message_list[0] == '제대' or message_list[0] == '해방':
-            await army_completion(channel)
-
         elif message_list[0] == 'ㅌㅅ' or message_list[0] == '퇴사':
             await quit_job(channel)
-            
+
         elif message_list[0] == 'ㅎㄱ' or message_list[0] == '한강온도' or\
             message_list[0] == '한강수온':
             await han_degree(channel)
@@ -658,6 +634,42 @@ async def on_message(message):
                 pd.to_datetime(np.datetime64(datetime.datetime.now(), '[m]'), format='%Y-%m-%dT%H'))
             print(current_time)
             await today_match(channel)
+
+
+async def send_gif(channel, message):
+    fname = "unknown.gif"
+    folder = "unknonwn"
+    txt = message.content
+    if '만두' in txt:
+        if txt[2:] == "01":
+            fname = "icon_1.gif"
+        elif txt[2:] == "02":
+            fname = "icon_2.gif"
+        elif txt[2:] == "03":
+            fname = "icon_3.gif"
+        elif txt[2:] == "04":
+            fname = "icon_4.gif"
+        elif txt[2:] == "05":
+            fname = "icon_5.gif"
+        elif txt[2:] == "06":
+            fname = "icon_6.gif"
+        elif txt[2:] == "07" or txt[2:] == "펀치":
+            fname = "icon_7.gif"
+        elif txt[2:] == "08":
+            fname = "icon_8.gif"
+        elif txt[2:] == "09":
+            fname = "icon_9.gif"
+        elif txt[2:] == "10":
+            fname = "icon_10.gif"
+        elif txt[2:] == "12":
+            fname = "icon_12.gif"
+        elif txt[2:] == "13":
+            fname = "icon_13.gif"
+    else:
+        fname = "unknown.gif"
+    fpath = os.path.join('resources', 'emojis', folder, fname)
+    file = discord.File(fpath, filename="dccon.png")
+    await channel.send("", file=file)
 
 
 async def standing_whole_list(channel):
