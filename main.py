@@ -693,7 +693,7 @@ async def send_gif(channel, txt):
             folder = "mandu"
             fname = "icon_13.gif"
     elif '토코코' in txt:
-        if txt[2:] == "01":
+        if txt[3:] == "01":
             folder = "tokoko"
             fname = "icon_1.gif"
     elif '페페그없' in txt:
