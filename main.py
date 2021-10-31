@@ -538,15 +538,20 @@ async def on_message(message):
                     role = target_chan.guild.get_role(902726238844637234)
                     result += role.mention
         z = ''.join(result)
-        msg = await target_chan.send(z)
-        await msg.add_reaction("✅")
-        await msg.add_reaction("🗺️")
-        if legen:
-            await msg.add_reaction("<:text_01:903195468127932446>")
-            await msg.add_reaction("<:text_02:903195468350255125>")
-            await msg.add_reaction("<:text_03:903195467972759573>")
-            await msg.add_reaction("<:text_04:903195468169887764>")
-            await msg.add_reaction("<:text_05:903195468065046549>")
+        already_sent = False
+        async for sent_msg in target_chan.history():
+            if sent_msg.content == z:
+                already_sent = True
+        if not already_sent:
+            msg = await target_chan.send(z)
+            await msg.add_reaction("✅")
+            await msg.add_reaction("🗺️")
+            if legen:
+                await msg.add_reaction("<:text_01:903195468127932446>")
+                await msg.add_reaction("<:text_02:903195468350255125>")
+                await msg.add_reaction("<:text_03:903195467972759573>")
+                await msg.add_reaction("<:text_04:903195468169887764>")
+                await msg.add_reaction("<:text_05:903195468065046549>")
 
     if not message.author.bot and channel.id == 902490387233505321:
         if len(message_list) == 1:
