@@ -572,11 +572,13 @@ async def on_message(message):
     elif len(message_list) == 1 and not message.author.bot:
         if '만두' in message_list[0]:
             await send_gif(channel, message_list[0])
-        if '토코코' in message_list[0]:
+        elif '토코코' in message_list[0]:
             await send_gif(channel, message_list[0])
-        if '모덩이' in message_list[0]:
+        elif message_list[0] == '모덩이':
             await send_gif(channel, "토코코01")
-        if '페페그없' in message_list[0]:
+        elif message_list[0] == '페페그없':
+            await send_gif(channel, message_list[0])
+        elif message_list[0] == '나나':
             await send_gif(channel, message_list[0])
 
         if message_list[0] == '다음' or message_list[0] == 'ㄷㅇ':
@@ -701,6 +703,9 @@ async def send_gif(channel, txt):
         if txt[3:] == "01":
             folder = "tokoko"
             fname = "icon_1.gif"
+    elif txt == '나나':
+        folder = "nana"
+        fname = "icon_" + str(random.randint(1, 45)) + ".gif"
     elif '페페그없' in txt:
         folder = "pepe"
         fname = "01.gif"
