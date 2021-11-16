@@ -578,8 +578,6 @@ async def on_message(message):
             await send_gif(channel, "토코코01")
         elif '동물' in message_list[0]:
             await send_gif(channel, message_list[0])
-        elif message_list[0] == '안아줘요':
-            await send_gif(channel, "동물20")
         elif message_list[0] == '정말고마워요':
             await send_gif(channel, "동물01")
         elif message_list[0] == '그렇군요':
@@ -600,8 +598,32 @@ async def on_message(message):
             await send_gif(channel, "동물09")
         elif message_list[0] == '잘자요':
             await send_gif(channel, "동물10")
+        elif message_list[0] == '나빴어':
+            await send_gif(channel, "동물13")
+        elif message_list[0] == '으아아앙':
+            await send_gif(channel, "동물14")
+        elif message_list[0] == '먹을만하네요':
+            await send_gif(channel, "동물15")
+        elif message_list[0] == '반가워요':
+            await send_gif(channel, "동물16")
+        elif message_list[0] == '숨을래요':
+            await send_gif(channel, "동물18")
+        elif message_list[0] == '사랑해요':
+            await send_gif(channel, "동물19")
+        elif message_list[0] == '좋아해요':
+            await send_gif(channel, "동물21")
+        elif message_list[0] == '안아줘요':
+            await send_gif(channel, "동물20")
+        elif message_list[0] == '왜요':
+            await send_gif(channel, "동물23")
+        elif message_list[0] == '행복해요':
+            await send_gif(channel, "동물24")
+        elif message_list[0] == '지금가요':
+            await send_gif(channel, "동물25")
         elif message_list[0] == '화났어요':
             await send_gif(channel, "동물27")
+        elif message_list[0] == '할수있어요':
+            await send_gif(channel, "동물28")
         elif message_list[0] == '졸려요':
             await send_gif(channel, "동물26")
         elif message_list[0] == '배고파요':
