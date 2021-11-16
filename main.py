@@ -576,6 +576,40 @@ async def on_message(message):
             await send_gif(channel, message_list[0])
         elif message_list[0] == '모덩이':
             await send_gif(channel, "토코코01")
+        elif '동물' in message_list[0]:
+            await send_gif(channel, message_list[0])
+        elif message_list[0] == '안아줘요':
+            await send_gif(channel, "동물20")
+        elif message_list[0] == '정말고마워요':
+            await send_gif(channel, "동물01")
+        elif message_list[0] == '그렇군요':
+            await send_gif(channel, "동물02")
+        elif message_list[0] == '참잘했어요':
+            await send_gif(channel, "동물03")
+        elif message_list[0] == '이상해요':
+            await send_gif(channel, "동물04")
+        elif message_list[0] == '싫은데요':
+            await send_gif(channel, "동물05")
+        elif message_list[0] == '어쩌라는거야':
+            await send_gif(channel, "동물06")
+        elif message_list[0] == '미안해요':
+            await send_gif(channel, "동물07")
+        elif message_list[0] == '됐어요':
+            await send_gif(channel, "동물08")
+        elif message_list[0] == '푸하하':
+            await send_gif(channel, "동물09")
+        elif message_list[0] == '잘자요':
+            await send_gif(channel, "동물10")
+        elif message_list[0] == '화났어요':
+            await send_gif(channel, "동물27")
+        elif message_list[0] == '졸려요':
+            await send_gif(channel, "동물26")
+        elif message_list[0] == '배고파요':
+            await send_gif(channel, "동물32")
+        elif message_list[0] == '변태':
+            await send_gif(channel, "동물30")
+        elif message_list[0] == '엘렐레' or '앨랠래':
+            await send_gif(channel, "동물22")
         elif message_list[0] == '페페그없':
             await send_gif(channel, message_list[0])
         elif message_list[0] == '나나':
@@ -703,6 +737,75 @@ async def send_gif(channel, txt):
         if txt[3:] == "01":
             folder = "tokoko"
             fname = "icon_1.gif"
+    elif '동물' in txt:
+        folder = "animal"
+        if txt[2:] == "01":
+            fname = "icon_1.gif"
+        elif txt[2:] == "02":
+            fname = "icon_2.gif"
+        elif txt[2:] == "03":
+            fname = "icon_3.gif"
+        elif txt[2:] == "04":
+            fname = "icon_4.gif"
+        elif txt[2:] == "05":
+            fname = "icon_5.gif"
+        elif txt[2:] == "06":
+            fname = "icon_6.gif"
+        elif txt[2:] == "07":
+            fname = "icon_7.gif"
+        elif txt[2:] == "08":
+            fname = "icon_8.gif"
+        elif txt[2:] == "09":
+            fname = "icon_9.gif"
+        elif txt[2:] == "10":
+            fname = "icon_10.gif"
+        elif txt[2:] == "11":
+            fname = "icon_11.gif"
+        elif txt[2:] == "12":
+            fname = "icon_12.gif"
+        elif txt[2:] == "13":
+            fname = "icon_13.gif"
+        elif txt[2:] == "14":
+            fname = "icon_14.gif"
+        elif txt[2:] == "15":
+            fname = "icon_15.gif"
+        elif txt[2:] == "16":
+            fname = "icon_16.gif"
+        elif txt[2:] == "17":
+            fname = "icon_17.gif"
+        elif txt[2:] == "18":
+            fname = "icon_18.gif"
+        elif txt[2:] == "19":
+            fname = "icon_19.gif"
+        elif txt[2:] == "20":
+            fname = "icon_20.gif"
+        elif txt[2:] == "21":
+            fname = "icon_21.gif"
+        elif txt[2:] == "22":
+            fname = "icon_22.gif"
+        elif txt[2:] == "23":
+            fname = "icon_23.gif"
+        elif txt[2:] == "24":
+            fname = "icon_24.gif"
+        elif txt[2:] == "25":
+            fname = "icon_25.gif"
+        elif txt[2:] == "26":
+            fname = "icon_26.gif"
+        elif txt[2:] == "27":
+            fname = "icon_27.gif"
+        elif txt[2:] == "28":
+            fname = "icon_28.gif"
+        elif txt[2:] == "29":
+            fname = "icon_29.gif"
+        elif txt[2:] == "30":
+            fname = "icon_30.gif"
+        elif txt[2:] == "31":
+            fname = "icon_31.gif"
+        elif txt[2:] == "32":
+            fname = "icon_32.gif"
+        else:
+            folder = "unknown"
+            fname = "unknown.gif"
     elif txt == '나나':
         folder = "nana"
         fname = "icon_" + str(random.randint(1, 45)) + ".gif"
