@@ -608,7 +608,7 @@ async def on_message(message):
             await send_gif(channel, "동물32")
         elif message_list[0] == '변태':
             await send_gif(channel, "동물30")
-        elif message_list[0] == '엘렐레' or '앨랠래':
+        elif message_list[0] == '엘렐레' or message_list[0] == '앨랠래':
             await send_gif(channel, "동물22")
         elif message_list[0] == '페페그없':
             await send_gif(channel, message_list[0])
