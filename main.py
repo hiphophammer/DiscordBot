@@ -634,6 +634,8 @@ async def on_message(message):
             await send_gif(channel, "동물22")
         elif message_list[0] == '페페그없':
             await send_gif(channel, message_list[0])
+        elif message_list[0] == '냥겔라니움':
+            await send_gif(channel, message_list[0])
         elif message_list[0] == '나나':
             await send_gif(channel, message_list[0])
 
@@ -834,6 +836,9 @@ async def send_gif(channel, txt):
     elif '페페그없' in txt:
         folder = "pepe"
         fname = "01.gif"
+    elif '냥겔라니움' in txt:
+        folder = "misc"
+        fname = "1637094448.jpg"
     else:
         fname = "unknown.gif"
     fpath = os.path.join('resources', 'emojis', folder, fname)
@@ -842,6 +847,8 @@ async def send_gif(channel, txt):
         filename += ".gif"
     elif "png" in fname:
         filename += ".png"
+    elif "jpg" in fname:
+        filename += ".jpg"
     file = discord.File(fpath, filename=filename)
     await channel.send("", file=file)
 
