@@ -197,6 +197,7 @@ class chatbot(discord.Client):
                         else:
                             region = '미상'
 
+
                     if '전호' in txt:
                         isLegendary = True
                     else:

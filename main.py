@@ -94,7 +94,7 @@ async def check():
             if time_now.hour == 0:
                 msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
             elif time_now.hour == 1:
-                msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
+                msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카, 로웬")
             elif time_now.hour == 2:
                 msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
             elif time_now.hour == 3:
@@ -110,7 +110,7 @@ async def check():
             elif time_now.hour == 8:
                 msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
             elif time_now.hour == 9:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
+                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 로웬")
             elif time_now.hour == 10:
                 msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
             elif time_now.hour == 11:
@@ -122,7 +122,7 @@ async def check():
             elif time_now.hour == 14:
                 msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
             elif time_now.hour == 15:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
+                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어, 로웬")
             elif time_now.hour == 16:
                 msg.append("> 페이튼, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
             elif time_now.hour == 17:
@@ -134,7 +134,7 @@ async def check():
             elif time_now.hour == 20:
                 msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
             elif time_now.hour == 21:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
+                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 로웬")
             elif time_now.hour == 22:
                 msg.append("> 페이튼, 루테른 동부, 유디아, 애니츠, 슈샤이어")
             elif time_now.hour == 23:
@@ -486,6 +486,12 @@ async def show_map(channel, txt):
             fname = '티카티카'
         elif '비밀' in txt or '비숲' in txt:
             fname = '비밀의'
+    elif '로웬' in txt:
+        continent = '로웬'
+        if '늑대' in txt or '웅크' in txt:
+            fname = '웅크린'
+        elif '어금' in txt:
+            fname = '어금니의'
 
     fpath = os.path.join('resources', 'wanderer_maps', fname)
     file = discord.File(fpath, filename="map.png")
@@ -576,7 +582,7 @@ async def on_message(message):
             await send_gif(channel, message_list[0])
         elif message_list[0] == '모덩이':
             await send_gif(channel, "토코코01")
-        elif '동물' in message_list[0]:
+        elif '동물' in message_list[0] and '동물' != message_list[0]:
             await send_gif(channel, message_list[0])
         elif message_list[0] == '정말고마워요':
             await send_gif(channel, "동물01")
