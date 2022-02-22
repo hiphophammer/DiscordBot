@@ -321,12 +321,10 @@ async def quit_job(channel):
     await channel.send(emoji_cat)
     result = []
     d_tday = datetime.date.today()
-    d1 = datetime.date(2022, 2, 25)
+    d1 = datetime.date(2022, 2, 23)
     delta = d1 - d_tday
     if delta.days > 2:
         result.append('퇴사까지 ' + str(delta.days) + '일')
-    elif delta.days == 1:
-        result.append('퇴사까지 단 하루!!!')
     z = ''.join(result)
     await channel.send(z)
 
