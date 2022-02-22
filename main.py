@@ -315,6 +315,16 @@ async def han_degree(channel):
     await channel.send(emoji_cry[random.randint(0, 9)])
     await channel.send(contents.text)
 
+async def elden_ring(channel):
+    await channel.send(emoji_cat)
+    result = []
+    d_tday = datetime.date.today()
+    d1 = datetime.date(2022, 2, 25)
+    delta = d1 - d_tday
+    if delta.days > 0:
+        result.append('출시까지 ' + str(delta.days) + '일')
+    z = ''.join(result)
+    await channel.send(z)
 
 async def quit_job(channel):
     print('희수 날짜 계산...')
@@ -323,7 +333,7 @@ async def quit_job(channel):
     d_tday = datetime.date.today()
     d1 = datetime.date(2022, 2, 23)
     delta = d1 - d_tday
-    if delta.days > 2:
+    if delta.days > 0:
         result.append('퇴사까지 ' + str(delta.days) + '일')
     z = ''.join(result)
     await channel.send(z)
@@ -686,6 +696,9 @@ async def on_message(message):
 
         elif message_list[0] == 'ㅌㅅ' or message_list[0] == '퇴사':
             await quit_job(channel)
+
+        elif message_list[0] == 'ㅇㄷㄹ' or message_list[0] == '엘든링':
+            await elden_ring(channel)
 
         elif message_list[0] == 'ㅎㄱ' or message_list[0] == '한강온도' or\
             message_list[0] == '한강수온':
