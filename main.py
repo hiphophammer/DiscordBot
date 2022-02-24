@@ -318,11 +318,11 @@ async def han_degree(channel):
 async def elden_ring(channel):
     await channel.send(emoji_cat)
     result = []
-    d_tday = datetime.date.today()
-    d1 = datetime.date(2022, 2, 25)
+    d_tday = datetime.datetime.now()
+    d1 = datetime.datetime(2022, 2, 25, hour=8)
     delta = d1 - d_tday
     if delta.days > 0:
-        result.append('출시까지 ' + str(delta.days) + '일')
+        result.append('출시까지 ' + str(delta.days) + '일' + str(delta.hours % 24) + '시간' + str(delta.minutes % 60) + '분' + str(delta.seconds % 60) + '초')
     z = ''.join(result)
     await channel.send(z)
 
