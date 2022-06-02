@@ -624,9 +624,9 @@ async def send_gif(channel, txt):
         filename += ".png"
     elif "jpg" in fname:
         filename += ".jpg"
-    file = discord.File(fpath, filename=filename)
-    image = Image.open(file)
+    image = Image.open(fpath)
     image.thumbnail((100, 100))
+    file = discord.File(image, filename=filename)
     await channel.send("", file=file)
 
 
