@@ -7,6 +7,7 @@ from datetime import datetime as dt
 import requests
 import datetime
 import random
+from PIL import Image
 
 import pandas as pd
 import numpy as np
@@ -624,6 +625,8 @@ async def send_gif(channel, txt):
     elif "jpg" in fname:
         filename += ".jpg"
     file = discord.File(fpath, filename=filename)
+    image = Image.open(file)
+    image.thumbnail((100, 100))
     await channel.send("", file=file)
 
 
