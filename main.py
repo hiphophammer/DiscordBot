@@ -618,15 +618,20 @@ async def send_gif(channel, txt):
         fname = "unknown.gif"
     fpath = os.path.join('resources', 'emojis', folder, fname)
     filename = "dccon."
+    extension = ""
     if "gif" in fname:
         filename += ".gif"
+        extension = ".gif"
     elif "png" in fname:
         filename += ".png"
+        extension = ".png"
     elif "jpg" in fname:
         filename += ".jpg"
+        extension = ".jpg"
     image = Image.open(fpath)
     image.thumbnail((100, 100))
-    file = discord.File(image, filename=filename)
+    image.save("img" + extension)
+    file = discord.File(("img" + extension), filename=filename)
     await channel.send("", file=file)
 
 
