@@ -14,8 +14,6 @@ import numpy as np
 myToken = os.environ.get('MY_TOKEN')
 userToken = 'OTAyNDUzNDk3Njg4MTIxMzU1.YXepsw.9swHXOulpgVjbRAdZSm4cnt7xqM'
 channelID = 634035246592950284  # 노인정 일반
-comID = 902550990891401227
-loaID = 902490387233505321
 schedule = ls.LckSchedule()
 standing = lckStanding.LckStanding()
 last_checked_minute = 0
@@ -49,8 +47,6 @@ emoji_cry = [
              '<:pep:853643796193083402>',
              ]
 
-wanderer_notice = ""
-
 #     # 노인정
 #     channel = client.get_channel(634035246592950284)
 #
@@ -79,68 +75,6 @@ wanderer_notice = ""
 async def on_ready():
     # logged on
     print('Logged in as {0.user}'.format(client))
-    check.start()
-
-@tasks.loop(seconds=1)
-async def check():
-    global last_checked_minute
-    time_now = dt.now()
-    print("checking... time_now: " + time_now.strftime('%m월 %d일 %H시 %M분 %S초'))
-    if last_checked_minute != time_now.minute: # do every minute
-        last_checked_minute = time_now.minute
-        if time_now.minute == 55:
-            await wipe_channel(client.get_channel(loaID))
-            msg = ["> 다음 지역: \n"]
-            if time_now.hour == 0:
-                msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
-            elif time_now.hour == 1:
-                msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카, 로웬")
-            elif time_now.hour == 2:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
-            elif time_now.hour == 3:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
-            elif time_now.hour == 4:
-                msg.append("> 페이튼, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 5:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 6:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
-            elif time_now.hour == 7:
-                msg.append("> 아르테미스, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 8:
-                msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 9:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 로웬")
-            elif time_now.hour == 10:
-                msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
-            elif time_now.hour == 11:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 12:
-                msg.append("> 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
-            elif time_now.hour == 13:
-                msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 14:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부")
-            elif time_now.hour == 15:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어, 로웬")
-            elif time_now.hour == 16:
-                msg.append("> 페이튼, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 17:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 18:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 페이튼, 루테란 동부, 유디아, 애니츠, 슈샤이어")
-            elif time_now.hour == 19:
-                msg.append("> 페이튼, 루테란 동부(2), 유디아, 애니츠, 슈샤이어, 루테란 서부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 20:
-                msg.append("> 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            elif time_now.hour == 21:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 로웬")
-            elif time_now.hour == 22:
-                msg.append("> 페이튼, 루테른 동부, 유디아, 애니츠, 슈샤이어")
-            elif time_now.hour == 23:
-                msg.append("> 아르테미스, 욘, 베른 북부, 베른 남부, 루테란 서부, 루테란 동부, 토토이크, 아르데타인, 로헨델, 파푸니카")
-            z = ''.join(msg)
-            await client.get_channel(loaID).send(z)
 
 
 async def today_match(channel):
@@ -315,31 +249,19 @@ async def han_degree(channel):
     await channel.send(emoji_cry[random.randint(0, 9)])
     await channel.send(contents.text)
 
-async def elden_ring(channel):
-    await channel.send(emoji_cat)
-    result = []
-    d_tday = datetime.datetime.now()
-    d1 = datetime.datetime(2022, 2, 25, hour=8)
-    delta = d1 - d_tday
-    if delta.seconds > 0:
-        hours = delta.seconds // 3600
-        minutes = (delta.seconds % 3600) // 60
-        seconds = delta.seconds % 60
-        result.append('출시까지 ' + str(delta.days) + '일' + str(hours) + '시간' + str(minutes) + '분' + str(seconds) + '초')
-    z = ''.join(result)
-    await channel.send(z)
-
-async def quit_job(channel):
-    print('희수 날짜 계산...')
-    await channel.send(emoji_cat)
-    result = []
-    d_tday = datetime.date.today()
-    d1 = datetime.date(2023, 2, 23)
-    delta = d1 - d_tday
-    if delta.days > 0:
-        result.append('퇴사까지 ' + str(delta.days) + '일')
-    z = ''.join(result)
-    await channel.send(z)
+# async def elden_ring(channel):
+#     await channel.send(emoji_cat)
+#     result = []
+#     d_tday = datetime.datetime.now()
+#     d1 = datetime.datetime(2022, 2, 25, hour=8)
+#     delta = d1 - d_tday
+#     if delta.seconds > 0:
+#         hours = delta.seconds // 3600
+#         minutes = (delta.seconds % 3600) // 60
+#         seconds = delta.seconds % 60
+#         result.append('출시까지 ' + str(delta.days) + '일' + str(hours) + '시간' + str(minutes) + '분' + str(seconds) + '초')
+#     z = ''.join(result)
+#     await channel.send(z)
 
 # async def eightsix(channel):
 #     print('다음 에이티식스...')
@@ -362,162 +284,6 @@ async def wipe_channel(channel, msg = ""):
     if msg != "":
         await channel.send(msg)
 
-async def show_map(channel, txt):
-    fname = "klee"
-    if '아르테미스' in txt:
-        if '로그' in txt:
-            fname = '로그힐'
-        elif '모스' in txt or '안게' in txt:
-            fname = '안게모스'
-        elif '국경' in txt:
-            fname = '국경지대'
-    elif '유디아' in txt:
-        if '살란' in txt:
-            fname = '살란드'
-        elif '오즈' in txt:
-            fname = '오즈혼'
-    elif '루테란' in txt:
-        if '서부' in txt:
-            if '빌브' in txt:
-                fname = '빌브린'
-            elif '격전' in txt or '평야' in txt:
-                fname = '격전의'
-            elif '메드' in txt or '수도' in txt:
-                fname = '메드리닉'
-            elif '레이크' in txt:
-                fname = '레이크바'
-            elif '자고' in txt:
-                fname = '자고라스'
-        elif '동부' in txt:
-            if '크로' in txt:
-                fname = '크로커니스'
-            elif '해무리' in txt:
-                fname = '해무리'
-            elif '보레아' in txt:
-                fname = '보레아'
-            elif '라이아' in txt:
-                fname = '라이아'
-            elif '흑장미' in txt:
-                fname = '흑장미'
-            elif '디오' in txt:
-                fname = '디오리카'
-            elif '배꽃' in txt:
-                fname = '배꽃나무'
-    elif '베른' in txt and '자베른' not in txt:
-        if '남부' in txt:
-            if '벨리' in txt:
-                fname = '벨리온'
-            elif '칸다' in txt:
-                fname = '칸다리아'
-        elif '북부' in txt:
-            if '크로나' in txt:
-                fname = '크로나'
-            elif '파르나' in txt:
-                fname = '파르나'
-            elif '베르닐' in txt:
-                fname = '베르닐'
-            elif '발란' in txt:
-                fname = '발란카르'
-            elif '페스나르' in txt:
-                fname = '페스나르'
-    elif '토토이크' in txt:
-        if '바다' in txt:
-            fname = '바다향기'
-        elif '달콤' in txt:
-            fname = '달콤한'
-        elif '성큼' in txt:
-            fname = '성큼바위'
-        elif '침묵' in txt:
-            fname = '침묵하는'
-    elif '애니츠' in txt:
-        if '델파' in txt:
-            fname = '델파이'
-        elif '등나' in txt:
-            fname = '등나무'
-        elif '소리' in txt:
-            fname = '소리의'
-        elif '황혼' in txt:
-            fname = '황혼의'
-        elif '거울' in txt:
-            fname = '거울'
-    elif '아르데타인' in txt or '아르데' in txt:
-        if '토트' in txt:
-            fname = '토트리치'
-        elif '메마' in txt:
-            fname = '메마른'
-        elif '갈라진' in txt:
-            fname = '갈라진'
-        elif '네벨' in txt:
-            fname = '네벨호른'
-        elif '바람' in txt:
-            fname = '바람결'
-        elif '리제' in txt:
-            fname = '리제'
-    elif '슈샤' in txt:
-        if '얼어' in txt or '얼바' in txt:
-            fname = '얼어붙은'
-        elif '칼날' in txt:
-            fname = '칼날바람'
-        elif '서리' in txt:
-            fname = '서리감옥'
-        elif '머무른' in txt or '호수' in txt:
-            fname = '머무른'
-        elif '얼음' in txt:
-            fname = '얼음나비'
-    elif '로헨델' in txt:
-        if '엘조' in txt or '그늘' in txt:
-            fname = '엘조윈의'
-        elif '은빛' in txt:
-            fname = '은빛물결'
-        elif '유리' in txt:
-            fname = '유리연꽃'
-        elif '바람' in txt or '호수' in txt:
-            fname = '바람향기'
-        elif '제나' in txt:
-            fname = '파괴된'
-    elif '욘' in txt:
-        if '시작' in txt:
-            fname = '시작의'
-        elif '미완' in txt:
-            fname = '미완의'
-        elif '검은' in txt:
-            fname = '검은모루'
-        elif '무쇠' in txt:
-            fname = '무쇠망치'
-        elif '기약' in txt:
-            fname = '기약의'
-    elif '페이튼' in txt:
-        fname = '칼라자 마을'
-    elif '파푸니카' in txt:
-        if '바닷길' in txt or '얕바' in txt:
-            fname = '얕은'
-        elif '별모' in txt:
-            fname = '별모래'
-        elif '티카' in txt:
-            fname = '티카티카'
-        elif '비밀' in txt or '비숲' in txt:
-            fname = '비밀의'
-    elif '로웬' in txt:
-        continent = '로웬'
-        if '늑대' in txt or '웅크' in txt:
-            fname = '웅크린'
-        elif '어금' in txt:
-            fname = '어금니의'
-
-    fpath = os.path.join('resources', 'wanderer_maps', fname)
-    file = discord.File(fpath, filename="map.png")
-    await channel.send("", file=file)
-
-
-@client.event
-async def on_reaction_add(reaction, user):
-    if user.bot is False:
-        print("reaction added, user is not bot")
-        channel = reaction.message.channel
-        if channel.id == loaID and reaction.emoji == "🗺️":
-            print("added map reaction in 떠상 channel by user " + user.display_name)
-            await show_map(channel, reaction.message.content)
-
 
 @client.event
 async def on_message(message):
@@ -530,63 +296,8 @@ async def on_message(message):
     channel = message.channel  # get this channel info
     message_list = message.content.split(' ', 3)
 
-    if channel.id == comID:
-        target_chan = client.get_channel(loaID)
-        lines = message.content.splitlines()
-        result = []
-        legen = False
-        if len(lines) == 1:
-            pass
-        else:
-            result += lines[0]
-            result += " "
-            result += lines[1]
-            result += " "
-            if "True" in lines[3]: # 웨이 뜸, 숭이들 다 부르기
-                result += "웨이 "
-                role = target_chan.guild.get_role(890387331524227093)
-                result += role.mention
-            else: # 웨이 안 뜸, 영호/전호 멘션
-                if "전호" in lines[2]:
-                    role = target_chan.guild.get_role(902726400463745054)
-                    result += role.mention
-                    legen = True
-                else:
-                    role = target_chan.guild.get_role(902726238844637234)
-                    result += role.mention
-        z = ''.join(result)
-        already_sent = False
-        async for sent_msg in target_chan.history():
-            if sent_msg.content == z:
-                already_sent = True
-        if not already_sent:
-            msg = await target_chan.send(z)
-            await msg.add_reaction("✅")
-            await msg.add_reaction("🗺️")
-            if legen:
-                await msg.add_reaction("<:text_01:903195468127932446>")
-                await msg.add_reaction("<:text_02:903195468350255125>")
-                await msg.add_reaction("<:text_03:903195467972759573>")
-                await msg.add_reaction("<:text_04:903195468169887764>")
-                await msg.add_reaction("<:text_05:903195468065046549>")
-
-    if not message.author.bot and channel.id == 902490387233505321:
-        if len(message_list) == 1:
-            if message_list[0] == '~영호':
-                role = discord.utils.get(message.author.guild.roles, id=902726238844637234) # 영호롤
-                await message.author.add_roles(role)
-                await message.delete()
-                await channel.send("<:mk_4:889863718748442654>")
-            elif message_list[0] == '~전호':
-                role = discord.utils.get(message.author.guild.roles, id=902726400463745054) # 전호롤
-                await message.author.add_roles(role)
-                await message.delete()
-                await channel.send("<:mk_4:889863718748442654>")
-            elif message_list[0] == "~wipe":
-                await wipe_channel(channel)
-
     # message parsing
-    elif len(message_list) == 1 and not message.author.bot:
+    if len(message_list) == 1 and not message.author.bot:
         if '만두' in message_list[0]:
             await send_gif(channel, message_list[0])
         elif '토코코' in message_list[0]:
@@ -649,6 +360,25 @@ async def on_message(message):
             await send_gif(channel, "동물30")
         elif message_list[0] == '엘렐레' or message_list[0] == '앨랠래':
             await send_gif(channel, "동물22")
+        elif message_list[0] == '어지러워요':
+            await send_gif(channel, "동물33")
+        elif message_list[0] == '저는기어다닐거에요' or message_list[0] == '저는기어다닐거예요':
+            await send_gif(channel, "동물34")
+        elif message_list[0] == '뭘봐요':
+            await send_gif(channel, "동물35")
+        elif message_list[0] == '두려워요':
+            await send_gif(channel, "동물36")
+        elif message_list[0] == '뱃속에고기가있어요':
+            await send_gif(channel, "동물37")
+        elif message_list[0] == '너무해요':
+            await send_gif(channel, "동물38")
+        elif message_list[0] == '뭐해요':
+            await send_gif(channel, "동물39")
+        elif message_list[0] == '지금가요':
+            await send_gif(channel, "동물40")
+        elif message_list[0] == '힘내요':
+            await send_gif(channel, "동물41")
+            #############
         elif message_list[0] == '페페그없':
             await send_gif(channel, message_list[0])
         elif message_list[0] == '냥겔라니움':
@@ -847,9 +577,33 @@ async def send_gif(channel, txt):
             fname = "icon_31.png"
         elif txt[2:] == "32":
             fname = "icon_32.png"
-        else:
-            folder = "unknown"
-            fname = "unknown.gif"
+        elif txt[2:] == "33":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_1.png"
+        elif txt[2:] == "34":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_2.png"
+        elif txt[2:] == "35":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_3.png"
+        elif txt[2:] == "36":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_4.png"
+        elif txt[2:] == "37":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_5.png"
+        elif txt[2:] == "38":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_6.png"
+        elif txt[2:] == "39":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_7.png"
+        elif txt[2:] == "40":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_8.png"
+        elif txt[2:] == "41":
+            folder = os.path.join(folder, 'animal_dlc')
+            fname = "icon_9.png"
     elif txt == '나나':
         folder = "nana"
         fname = "icon_" + str(random.randint(1, 45)) + ".gif"
