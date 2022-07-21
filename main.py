@@ -617,7 +617,7 @@ async def send_gif(channel, txt):
     else:
         fname = "unknown.gif"
     fpath = os.path.join('resources', 'emojis', folder, fname)
-    filename = "dccon."
+    filename = "dccon"
     extension = ""
     if "gif" in fname:
         filename += ".gif"
