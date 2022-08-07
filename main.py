@@ -7,7 +7,7 @@ import lckStanding
 bot = commands.Bot(command_prefix='')
 myToken = os.environ.get('MY_TOKEN')
 
-lck_standing = lckStanding()
+lck_standing = lckStanding
 team_emoji = {
     'GEN':  '<:gen:1005837152044720188>',
     'T1':   '<:T1:1005837620972101703>',
@@ -37,7 +37,7 @@ team_codes = {
 
 @bot.event
 async def on_ready():
-    return
+    print('Logged in.')
 
 
 # 순위표
