@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import selenium_utility as SU
 
 
-@dataclass
+@dataclass()
 class Team:
     name: str = None
     rank: int = None
@@ -17,13 +17,13 @@ class LckStanding:
     url = 'https://game.naver.com/esports/record/lck/team/lck_2022_summer'
     teams = []
 
-    def refresh(self, wd):
+    def refresh(self):
         # open webpage and wait for the page to load
-        wd.get(self.url)
-        SU.wait_for_element(wd, By.XPATH, '//*[@id="civ"]/div/div/div/div/div[2]/div[1]/ul/li[1]')
-        team_names = wd.find_elements(By.CLASS_NAME, 'record_list_name__27huQ')
+        self.wd.get(self.url)
+        SU.wait_for_element(self.wd, By.XPATH, '//*[@id="civ"]/div/div/div/div/div[2]/div[1]/ul/li[1]')
+        team_names = self.wd.find_elements(By.CLASS_NAME, 'record_list_name__27huQ')
 
-        wrapper = wd.find_element(By.CLASS_NAME, 'record_list_wrap_filter__1Ux0E')
+        wrapper = self.wd.find_element(By.CLASS_NAME, 'record_list_wrap_filter__1Ux0E')
         stats = wrapper.find_elements(By.CLASS_NAME, 'record_list_item__2fFsp')
         # update team stats from #1 to #10
         for i in range(10):
@@ -50,4 +50,4 @@ class LckStanding:
         wd.get(url)
 
         # refresh() to get the standing info
-        self.refresh(wd)
+        self.refresh()
