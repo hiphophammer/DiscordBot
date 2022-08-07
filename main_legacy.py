@@ -1,6 +1,6 @@
 import discord
-import lckSchedule as ls
-import lckStanding
+import lckSchedule_legacy as ls
+import lckStanding_legacy
 import os
 from discord.ext import tasks, commands
 from datetime import datetime as dt
@@ -16,7 +16,7 @@ myToken = os.environ.get('MY_TOKEN')
 userToken = 'OTAyNDUzNDk3Njg4MTIxMzU1.YXepsw.9swHXOulpgVjbRAdZSm4cnt7xqM'
 channelID = 634035246592950284  # 노인정 일반
 schedule = ls.LckSchedule()
-standing = lckStanding.LckStanding()
+standing = lckStanding_legacy.LckStanding()
 last_checked_minute = 0
 client = commands.Bot(command_prefix="#")
 
