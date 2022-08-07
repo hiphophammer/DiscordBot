@@ -1,6 +1,7 @@
 datetime
 discord.py
 selenium
+selenium webdriver_manager
 pandas
 numpy
 beautifulsoup4

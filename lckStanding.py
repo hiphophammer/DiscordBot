@@ -1,14 +1,22 @@
-from bs4 import BeautifulSoup as bs
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-import os
-import numpy as np
-import pandas as pd
-import re
+
+
+# from bs4 import BeautifulSoup as bs
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# import os
+# import numpy as np
+# import pandas as pd
+# import re
+
+
 
 
 class LckStanding:
-    url = 'https://lolesports.com/standings/lck/lck_summer_2021/regular_season'
+    url = 'https://game.naver.com/esports/record/lck/team/lck_2022_summer'
 
     def __init__(self, url=url):
         # options for chromedriver
