@@ -11,16 +11,16 @@ myToken = os.environ.get('MY_TOKEN')
 lck_standing = LckStanding()
 
 team_emoji = {
-    'GEN': '<:gen:1005837152044720188>',
+    'GEN': '<:GEN:1005837152044720188>',
     'T1': '<:T1:1005837620972101703>',
-    'DK': '<DK:1005837689699962961>',
-    'DRX': '<DRX:1005837766149541888>',
-    'FB': '<FB:1005838000833446032>',
-    'HLE': '<HLE:1005838157750743123>',
-    'KDF': '<KDF:1005838244082098337>',
-    'KT': '<KT:1005838301141405706>',
-    'NS': '<NS:1005838422138704034>',
-    'LSB': '<SB:1005838597477372014>'
+    'DK': '<:DK:1005837689699962961>',
+    'DRX': '<:DRX:1005837766149541888>',
+    'FB': '<:FB:1005838000833446032>',
+    'HLE': '<:HLE:1005838157750743123>',
+    'KDF': '<:KDF:1005838244082098337>',
+    'KT': '<:KT:1005838301141405706>',
+    'NS': '<:NS:1005838422138704034>',
+    'LSB': '<:SB:1005838597477372014>'
 }
 
 team_codes = {
@@ -49,11 +49,9 @@ async def match_standing(channel):
         team = lck_standing.teams[i]
         result.append('\n')
         result.append('> ')
-        result.append(str(i))
+        result.append(str(i+1))
         result.append(' ')
-        result.append('**')
         result.append(team_emoji[team_codes[team.name]])
-        result.append('**')
         result.append(' ')
         result.append(str(team.wins))
         result.append('승 ')
