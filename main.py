@@ -44,13 +44,23 @@ async def on_ready():
 
 # 순위표
 async def match_standing(channel):
-    lck_standing.refresh()
     result = ['LCK 순위표:']
     for i in range(10):
         team = lck_standing.teams[i]
-        result.append(
-            f'\n> {i + 1} **{team_emoji[team_codes[team.name]]}** {team.wins}승 {team.losses}패, 득실: {team.difference}')
-    await channel.send(result)
+        result.append('\n')
+        result.append('> ')
+        result.append(i)
+        result.append(' ')
+        result.append('**')
+        result.append(team.name)
+        result.append('**')
+        result.append(' ')
+        result.append(str(team.wins))
+        result.append('승 ')
+        result.append(str(team.losses))
+        result.append('패')
+    z = ''.join(result)
+    await channel.send(z)
 
 
 # 명령어
