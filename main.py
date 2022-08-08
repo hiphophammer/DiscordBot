@@ -49,7 +49,7 @@ async def match_standing(channel):
         team = lck_standing.teams[i]
         result.append('\n')
         result.append('> ')
-        result.append(i)
+        result.append(str(i))
         result.append(' ')
         result.append('**')
         result.append(team.name)
