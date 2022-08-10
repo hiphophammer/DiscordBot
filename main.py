@@ -1,8 +1,9 @@
 import discord
-from discord.ext import commands
+from discord.ext import tasks, commands
 import os
 
-from lckStanding import LckStanding
+from lck_standing import LckStanding
+from lck_schedule import LckSchedule
 
 
 bot = commands.Bot(command_prefix='')
@@ -42,6 +43,14 @@ async def on_ready():
     print('Logged in.')
 
 
+@tasks.loop(seconds=20.0)
+async def update():
+    # refresh standing
+    lck_standing.refresh()
+    # refresh schedule
+
+
+
 # 순위표
 async def match_standing(channel):
     result = ['LCK 순위표:']
@@ -69,6 +78,11 @@ async def ping(ctx):
 
 
 @bot.command(name="순위표")
+async def standing(ctx):
+    await match_standing(ctx)
+
+
+@bot.command(name="ㅅㅇㅍ")
 async def standing(ctx):
     await match_standing(ctx)
 

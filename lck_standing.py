@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from dataclasses import dataclass
-
 import selenium_utility as SU
 
 
@@ -39,7 +38,7 @@ class LckStanding:
         for team in self.teams:
             print(f'{team.rank}위 {team.name} / {team.wins}승 {team.losses}패 / 득실 {team.difference}')
 
-    def __init__(self, url=url):
+    def __init__(self):
         # initialize list
         for s in range(10):
             self.teams.append(Team())
@@ -47,7 +46,7 @@ class LckStanding:
         # initiate webdriver
         self.wd = SU.setup_webdriver()
         wd = self.wd
-        wd.get(url)
+        wd.get(self.url)
 
         # refresh() to get the standing info
         self.refresh()
