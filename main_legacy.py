@@ -13,7 +13,7 @@ import pandas as pd
 import numpy as np
 
 myToken = os.environ.get('MY_TOKEN')
-userToken = 'OTAyNDUzNDk3Njg4MTIxMzU1.YXepsw.9swHXOulpgVjbRAdZSm4cnt7xqM'
+userToken = ''
 channelID = 634035246592950284  # 노인정 일반
 schedule = ls.LckSchedule()
 standing = lckStanding_legacy.LckStanding()
