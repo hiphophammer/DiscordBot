@@ -1,6 +1,5 @@
 import discord
-import lckSchedule_legacy as ls
-import lckStanding_legacy
+from legacy import lckSchedule_legacy as ls, lckStanding_legacy
 import os
 from discord.ext import tasks, commands
 from datetime import datetime as dt
