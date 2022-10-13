@@ -1,4 +1,4 @@
-#Discord Bot (집요정)
+###Discord Bot (집요정)
 
 ## What is it?
 This little, interactive bot is written in **Discord.py**.
